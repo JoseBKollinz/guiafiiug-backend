@@ -185,6 +185,29 @@ def buscar_usuario():
     doc = resultado[0]
     return jsonify({"id": doc.id})
 
+@app.route("/api/popularidad-espacios", methods=["POST"])
+def popularidad_espacios():
+    id_token = request.json.get("idToken")
+    try:
+        require_role(id_token, ["admin", "auditor"])
+    except PermissionError:
+        return jsonify({"error": "Acceso denegado"}), 403
+
+    conteo_busquedas = {}
+    for doc in db.collection("busquedas").stream():
+        espacio = doc.to_dict().get("espacio_id")
+        if espacio:
+            conteo_busquedas[espacio] = conteo_busquedas.get(espacio, 0) + 1
+
+    conteo_favoritos = {}
+    for doc in db.collection_group("favoritos").stream():
+        conteo_favoritos[doc.id] = conteo_favoritos.get(doc.id, 0) + 1
+
+    return jsonify({
+        "busquedas": conteo_busquedas,
+        "favoritos": conteo_favoritos
+    })
+
 # ---------- Módulo 5 — Visitante Web (público, sin login) ----------
 @app.route("/api/espacios-publicos", methods=["GET"])
 def espacios_publicos():
