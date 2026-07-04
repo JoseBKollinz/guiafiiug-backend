@@ -4,9 +4,20 @@ from firebase_admin import auth as fb_auth
 from firebase_admin_config import db
 from firebase_admin import firestore
 from crypto_utils import encriptar_cedula, desencriptar_cedula, hash_cedula
+from flask import Flask, request, jsonify, send_from_directory
 
-app = Flask(__name__)
+app = Flask(__name__, static_folder="static", static_url_path="")
 CORS(app)
+
+# Sirve login.html en la raíz
+@app.route("/")
+def index():
+    return send_from_directory(app.static_folder, "login.html")
+
+# Sirve cualquier otro archivo del frontend (dashboard.html, css, js)
+@app.route("/<path:filename>")
+def servir_estaticos(filename):
+    return send_from_directory(app.static_folder, filename)
 
 
 def get_role_from_token(id_token):

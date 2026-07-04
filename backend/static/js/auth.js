@@ -24,7 +24,7 @@ form.addEventListener("submit", async (e) => {
     const idToken = await cred.user.getIdToken();
 
     // Enviamos el token al backend Python para que lo verifique y devuelva el rol
-    const res = await fetch("https://guiafiiug-backend.onrender.com/api/verify",{
+    const res = await fetch("/api/verify", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ idToken })
