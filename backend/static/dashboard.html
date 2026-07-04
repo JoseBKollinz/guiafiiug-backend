@@ -78,6 +78,24 @@
         </div>
       </section>
 
+      <div class="chart-card" id="mapaCard" style="display:none">
+  <h3>🗺️ Mapa de popularidad</h3>
+  <div style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:12px">
+    <select id="mapaSelect" style="padding:6px 10px;border-radius:6px;border:1px solid #dde3ea">
+      <option value="campus_general">Campus general</option>
+      <option value="planta_baja">Planta baja (A B C)</option>
+      <option value="planta_baja_defg">Planta baja (D E F G)</option>
+      <option value="primer_piso_abc">Primer piso (A B C)</option>
+      <option value="primer_piso_dg">Primer piso (D G)</option>
+      <option value="segundo_piso_abc">Segundo piso (A B C)</option>
+    </select>
+    <label style="font-size:13px"><input type="radio" name="metricaMapa" value="favoritos" checked> Favoritos</label>
+    <label style="font-size:13px"><input type="radio" name="metricaMapa" value="busquedas"> Búsquedas</label>
+  </div>
+  <svg id="mapaSvg" viewBox="0 0 680 420" style="width:100%;height:auto"></svg>
+  <div id="mapaInfo" style="margin-top:8px;font-size:12.5px;color:#6b7280"></div>
+</div>
+
     </main>
   </div>
 </div>

@@ -120,6 +120,74 @@ function renderUserInfo() {
 }
 
 // ---------- Gráfico de espacios por tipo (Firestore real) ----------
+let mapaActualKey = "campus_general";
+let metricaActual = "favoritos";
+
+function radiusFor(v, maxV) {
+  const minR = 5, maxR = 26;
+  return minR + Math.sqrt(v / Math.max(maxV, 1)) * (maxR - minR);
+}
+
+function renderMapa() {
+  const items = mapas[mapaActualKey] || [];
+  const svg = document.getElementById("mapaSvg");
+  svg.innerHTML = "";
+
+  const conteo = datosReales[metricaActual] || {};
+  const maxV = Math.max(...items.map(i => conteo[i.id] || 0), 1);
+
+  for (const item of items) {
+    const rect = document.createElementNS("http://www.w3.org/2000/svg", "rect");
+    rect.setAttribute("x", item.x);
+    rect.setAttribute("y", Math.min(item.y, 380));
+    rect.setAttribute("width", item.w);
+    rect.setAttribute("height", item.h);
+    rect.setAttribute("rx", 4);
+    rect.setAttribute("fill", "#f3f5f8");
+    rect.setAttribute("stroke", "#dde3ea");
+    rect.setAttribute("stroke-width", "0.5");
+    rect.style.cursor = "pointer";
+    rect.addEventListener("click", () => mostrarInfoEspacio(item.id));
+    svg.appendChild(rect);
+
+    const cx = item.x + item.w / 2;
+    const cy = Math.min(item.y, 380) + item.h / 2;
+    const valor = conteo[item.id] || 0;
+    const r = radiusFor(valor, maxV);
+
+    const circle = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+    circle.setAttribute("cx", cx);
+    circle.setAttribute("cy", cy);
+    circle.setAttribute("r", r.toFixed(1));
+    circle.setAttribute("fill", metricaActual === "favoritos" ? "#d4537e" : "#d85a30");
+    circle.setAttribute("fill-opacity", "0.4");
+    circle.setAttribute("stroke", metricaActual === "favoritos" ? "#d4537e" : "#d85a30");
+    circle.setAttribute("stroke-width", "1");
+    circle.style.cursor = "pointer";
+    circle.addEventListener("click", () => mostrarInfoEspacio(item.id));
+    svg.appendChild(circle);
+  }
+}
+
+function mostrarInfoEspacio(id) {
+  const nombre = id.replace(/_/g, " ").trim();
+  const busquedas = (datosReales.busquedas || {})[id] || 0;
+  const favoritos = (datosReales.favoritos || {})[id] || 0;
+  document.getElementById("mapaInfo").textContent = `${nombre}: ${busquedas} búsquedas, ${favoritos} favoritos`;
+}
+
+function initMapaControles() {
+  document.getElementById("mapaSelect").addEventListener("change", (e) => {
+    mapaActualKey = e.target.value;
+    renderMapa();
+  });
+  document.querySelectorAll('input[name="metricaMapa"]').forEach(radio => {
+    radio.addEventListener("change", (e) => {
+      metricaActual = e.target.value;
+      renderMapa();
+    });
+  });
+}
 // ---------- Gráfico de espacios más favoriteados (dato real desde Firestore) ----------
 async function renderChart() {
   const snap = await getDocs(collectionGroup(db, "favoritos"));
@@ -196,7 +264,6 @@ document.getElementById("hamburger").addEventListener("click", () => {
 });
 
 // ---------- Init ----------
-// ---------- Init ----------
 onAuthStateChanged(auth, async (user) => {
   if (!user) { window.location.href = "login.html"; return; }
 
@@ -213,5 +280,13 @@ onAuthStateChanged(auth, async (user) => {
     renderSidePanel([]);
   }
 
-  
+  if (role === "admin" || role === "auditor") {
+    const idToken = await user.getIdToken();
+    await cargarCoordenadas();
+    await cargarPopularidad(idToken);
+
+    document.getElementById("mapaCard").style.display = "block";
+    initMapaControles();
+    renderMapa();
+  }
 });
