@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Panel de Control | Sistema de Gestión de Espacios</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="css/dashboard.css">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4"></script>
+</head>
+<body>
+
+<div class="layout">
+
+  <!-- Sidebar -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-brand">
+      <div class="logo-box">UG</div>
+      <div class="brand-text">
+        <strong>Facultad de Ingeniería</strong>
+        <span>Industrial</span>
+      </div>
+    </div>
+
+    <div class="sidebar-search">
+      <input type="text" placeholder="Buscar módulo...">
+    </div>
+
+    <nav class="sidebar-nav" id="sidebarNav">
+      <!-- Se llena dinámicamente según el rol, ver dashboard.js -->
+    </nav>
+  </aside>
+
+  <!-- Contenido -->
+  <div class="content">
+
+    <!-- Topbar -->
+    <header class="topbar">
+      <button class="hamburger" id="hamburger">☰</button>
+      <div class="topbar-period">📅 Periodo <strong id="periodoActual">2026</strong></div>
+      <div class="topbar-right">
+        <span class="bell">🔔</span>
+        <div class="user-chip">
+          <div class="avatar" id="avatarInitials"></div>
+          <div class="user-info">
+            <strong id="userName"></strong>
+            <span id="userRoleLabel"></span>
+          </div>
+        </div>
+        <button class="logout-btn" onclick="logout()">Salir</button>
+      </div>
+    </header>
+
+    <main class="main">
+
+      <!-- Hero -->
+      <section class="hero-card">
+        <div>
+          <h2>Hola, <span id="heroName">Usuario</span> 👋</h2>
+          <p id="heroSubtitle">Gestiona y supervisa los espacios de la facultad.</p>
+        </div>
+        <div class="hero-badge">Sistema de Gestión de Espacios</div>
+      </section>
+
+      <!-- Stat cards -->
+      <section class="stats-grid" id="statsGrid">
+        <!-- Se llenan dinámicamente según el rol -->
+      </section>
+
+      <!-- Gráfico + panel lateral -->
+      <section class="charts-row">
+        <div class="chart-card" id="chartCard">
+          <h3>⭐ Espacios más favoriteados</h3>
+          <canvas id="espaciosChart" height="220"></canvas>
+        </div>
+
+        <div class="side-panel" id="sidePanel">
+          <!-- Contenido dinámico: auditoría reciente, ranking, etc. -->
+        </div>
+      </section>
+
+    </main>
+  </div>
+</div>
+
+<script type="module" src="js/firebase-config.js"></script>
+<script type="module" src="js/dashboard.js"></script>
+</body>
+</html>

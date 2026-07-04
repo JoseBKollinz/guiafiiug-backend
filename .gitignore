@@ -1,0 +1,17 @@
+venv/
+env/
+ENV/
+serviceAccountKey.json
+.env
+*.env
+firebase-adminsdk*.json
+__pycache__/
+*.pyc
+*.pyo
+*.egg-info/
+export_firestore.json
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+*.log
