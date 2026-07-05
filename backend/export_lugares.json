@@ -1,0 +1,1597 @@
+{
+  "lugares": {
+    "Administracion": {
+      "nombre": "Administración",
+      "tipo": "Oficina Administrativa",
+      "info": "📋 Oficina de Administración",
+      "servicios": [
+        "📶 WiFi",
+        "❄️ AC",
+        "🖨️ Impresora"
+      ],
+      "id": "Administracion",
+      "mapa": "Planta Baja A-B-C"
+    },
+    "Area_con_asientos_": {
+      "nombre": "Área con Asientos",
+      "tipo": "Zona de Descanso",
+      "info": "🪑 Espacio de descanso al aire libre",
+      "servicios": [
+        "🪑 Asientos",
+        "🌳 Aire libre"
+      ],
+      "id": "Area_con_asientos_",
+      "mapa": "Campus"
+    },
+    "Asociacion_de_Escuela": {
+      "nombre": "Asociación de Escuela",
+      "tipo": "Oficina Estudiantil",
+      "info": "🎓 Sede de la asociación estudiantil",
+      "servicios": [
+        "📶 WiFi",
+        "🎓 Atención estudiantes"
+      ],
+      "id": "Asociacion_de_Escuela",
+      "mapa": "Planta Baja A-B-C"
+    },
+    "Auditorio_14_B_201": {
+      "nombre": "Auditorio 14B-201",
+      "tipo": "Auditorio",
+      "info": "🎤 Auditorio del Bloque B",
+      "servicios": [
+        "📶 WiFi",
+        "📺 Proyector",
+        "🎤 Micrófono",
+        "❄️ AC",
+        "💺 100+ asientos"
+      ],
+      "id": "Auditorio_14_B_201",
+      "mapa": "Planta Baja A-B-C"
+    },
+    "Aula_14D-001": {
+      "nombre": "Aula 14D-001",
+      "tipo": "Aula de Clases",
+      "info": "🏫 Bloque D - Planta Baja\n💺 Capacidad: 44 estudiantes",
+      "servicios": [
+        "📶 WiFi",
+        "📺 Proyector",
+        "💺 44 asientos"
+      ],
+      "id": "Aula_14D-001",
+      "mapa": "Planta Baja D-E-F-G"
+    },
+    "Aula_14D-002": {
+      "nombre": "Aula 14D-002",
+      "tipo": "Aula de Clases",
+      "info": "🏫 Bloque D - Planta Baja\n💺 Capacidad: 44 estudiantes",
+      "servicios": [
+        "📶 WiFi",
+        "📺 Proyector",
+        "💺 44 asientos"
+      ],
+      "id": "Aula_14D-002",
+      "mapa": "Planta Baja D-E-F-G"
+    },
+    "Aula_14D-003": {
+      "nombre": "Aula 14D-003",
+      "tipo": "Aula de Clases",
+      "info": "🏫 Bloque D - Planta Baja\n💺 Capacidad: 44 estudiantes",
+      "servicios": [
+        "📶 WiFi",
+        "📺 Proyector",
+        "💺 44 asientos"
+      ],
+      "id": "Aula_14D-003",
+      "mapa": "Planta Baja D-E-F-G"
+    },
+    "Aula_14D-004": {
+      "nombre": "Aula 14D-004",
+      "tipo": "Aula de Clases",
+      "info": "🏫 Bloque D - Planta Baja\n💺 Capacidad: 44 estudiantes",
+      "servicios": [
+        "📶 WiFi",
+        "📺 Proyector",
+        "💺 44 asientos"
+      ],
+      "id": "Aula_14D-004",
+      "mapa": "Planta Baja D-E-F-G"
+    },
+    "Aula_14D-005": {
+      "nombre": "Aula 14D-005",
+      "tipo": "Aula de Clases",
+      "info": "🏫 Bloque D - Planta Baja\n💺 Capacidad: 44 estudiantes",
+      "servicios": [
+        "📶 WiFi",
+        "📺 Proyector",
+        "💺 44 asientos"
+      ],
+      "id": "Aula_14D-005",
+      "mapa": "Planta Baja D-E-F-G"
+    },
+    "Aula_14D-006": {
+      "nombre": "Aula 14D-006",
+      "tipo": "Aula de Clases",
+      "info": "🏫 Bloque D - Planta Baja\n💺 Capacidad: 44 estudiantes",
+      "servicios": [
+        "📶 WiFi",
+        "📺 Proyector",
+        "💺 44 asientos"
+      ],
+      "id": "Aula_14D-006",
+      "mapa": "Planta Baja D-E-F-G"
+    },
+    "Aula_14D-007": {
+      "nombre": "Aula 14D-007",
+      "tipo": "Aula de Clases",
+      "info": "🏫 Bloque D - Planta Baja\n💺 Capacidad: 44 estudiantes",
+      "servicios": [
+        "📶 WiFi",
+        "📺 Proyector",
+        "💺 44 asientos"
+      ],
+      "id": "Aula_14D-007",
+      "mapa": "Planta Baja D-E-F-G"
+    },
+    "Aula_14D-008": {
+      "nombre": "Aula 14D-008",
+      "tipo": "Aula de Clases",
+      "info": "🏫 Bloque D - Planta Baja\n💺 Capacidad: 44 estudiantes",
+      "servicios": [
+        "📶 WiFi",
+        "📺 Proyector",
+        "💺 44 asientos"
+      ],
+      "id": "Aula_14D-008",
+      "mapa": "Planta Baja D-E-F-G"
+    },
+    "Aula_14D-101": {
+      "nombre": "Aula 14D-101",
+      "tipo": "Aula de Clases",
+      "info": "🏫 Bloque D - Piso 1\n💺 Capacidad: 44 estudiantes",
+      "servicios": [
+        "📶 WiFi",
+        "📺 Proyector",
+        "💺 44 asientos"
+      ],
+      "id": "Aula_14D-101",
+      "mapa": "Piso 1 D-G"
+    },
+    "Aula_14D-102": {
+      "nombre": "Aula 14D-102",
+      "tipo": "Aula de Clases",
+      "info": "🏫 Bloque D - Piso 1\n💺 Capacidad: 44 estudiantes",
+      "servicios": [
+        "📶 WiFi",
+        "📺 Proyector",
+        "💺 44 asientos"
+      ],
+      "id": "Aula_14D-102",
+      "mapa": "Piso 1 D-G"
+    },
+    "Aula_14D-103": {
+      "nombre": "Aula 14D-103",
+      "tipo": "Aula de Clases",
+      "info": "🏫 Bloque D - Piso 1\n💺 Capacidad: 44 estudiantes",
+      "servicios": [
+        "📶 WiFi",
+        "📺 Proyector",
+        "💺 44 asientos"
+      ],
+      "id": "Aula_14D-103",
+      "mapa": "Piso 1 D-G"
+    },
+    "Aula_14D-104": {
+      "nombre": "Aula 14D-104",
+      "tipo": "Aula de Clases",
+      "info": "🏫 Bloque D - Piso 1\n💺 Capacidad: 44 estudiantes",
+      "servicios": [
+        "📶 WiFi",
+        "📺 Proyector",
+        "💺 44 asientos"
+      ],
+      "id": "Aula_14D-104",
+      "mapa": "Piso 1 D-G"
+    },
+    "Aula_14D-105": {
+      "nombre": "Aula 14D-105",
+      "tipo": "Aula de Clases",
+      "info": "🏫 Bloque D - Piso 1\n💺 Capacidad: 44 estudiantes",
+      "servicios": [
+        "📶 WiFi",
+        "📺 Proyector",
+        "💺 44 asientos"
+      ],
+      "id": "Aula_14D-105",
+      "mapa": "Piso 1 D-G"
+    },
+    "Aula_14D-106": {
+      "nombre": "Aula 14D-106",
+      "tipo": "Aula de Clases",
+      "info": "🏫 Bloque D - Piso 1\n💺 Capacidad: 44 estudiantes",
+      "servicios": [
+        "📶 WiFi",
+        "📺 Proyector",
+        "💺 44 asientos"
+      ],
+      "id": "Aula_14D-106",
+      "mapa": "Piso 1 D-G"
+    },
+    "Aula_14D-107": {
+      "nombre": "Aula 14D-107",
+      "tipo": "Aula de Clases",
+      "info": "🏫 Bloque D - Piso 1\n💺 Capacidad: 44 estudiantes",
+      "servicios": [
+        "📶 WiFi",
+        "📺 Proyector",
+        "💺 44 asientos"
+      ],
+      "id": "Aula_14D-107",
+      "mapa": "Piso 1 D-G"
+    },
+    "Aula_14D-108": {
+      "nombre": "Aula 14D-108",
+      "tipo": "Aula de Clases",
+      "info": "🏫 Bloque D - Piso 1\n💺 Capacidad: 44 estudiantes",
+      "servicios": [
+        "📶 WiFi",
+        "📺 Proyector",
+        "💺 44 asientos"
+      ],
+      "id": "Aula_14D-108",
+      "mapa": "Piso 1 D-G"
+    },
+    "Aula_14c-003": {
+      "nombre": "Aula 14C-003",
+      "tipo": "Aula de Clases",
+      "info": "🏫 Bloque C - Planta Baja\n💺 Capacidad: 44 estudiantes",
+      "servicios": [
+        "📶 WiFi",
+        "📺 Proyector",
+        "💺 44 asientos"
+      ],
+      "id": "Aula_14c-003",
+      "mapa": "Planta Baja A-B-C"
+    },
+    "Aula_14c-004": {
+      "nombre": "Aula 14C-004",
+      "tipo": "Aula de Clases",
+      "info": "🏫 Bloque C - Planta Baja\n💺 Capacidad: 44 estudiantes",
+      "servicios": [
+        "📶 WiFi",
+        "📺 Proyector",
+        "💺 44 asientos"
+      ],
+      "id": "Aula_14c-004",
+      "mapa": "Planta Baja A-B-C"
+    },
+    "Aula_14c-005": {
+      "nombre": "Aula 14C-005",
+      "tipo": "Aula de Clases",
+      "info": "🏫 Bloque C - Planta Baja\n💺 Capacidad: 44 estudiantes",
+      "servicios": [
+        "📶 WiFi",
+        "📺 Proyector",
+        "💺 44 asientos"
+      ],
+      "id": "Aula_14c-005",
+      "mapa": "Planta Baja A-B-C"
+    },
+    "Aula_14c-006": {
+      "nombre": "Aula 14C-006",
+      "tipo": "Aula de Clases",
+      "info": "🏫 Tipo: Aula teórica\n💺 Capacidad: 44 estudiantes\n🏢 Bloque C - Planta Baja",
+      "servicios": [
+        "📶 WiFi",
+        "📺 Proyector",
+        "💺 44 asientos"
+      ],
+      "id": "Aula_14c-006",
+      "mapa": "Planta Baja A-B-C"
+    },
+    "Aula_14c-007": {
+      "nombre": "Aula 14C-007",
+      "tipo": "Aula de Clases",
+      "info": "🏫 Tipo: Aula teórica\n💺 Capacidad: 44 estudiantes\n🏢 Bloque C - Planta Baja",
+      "servicios": [
+        "📶 WiFi",
+        "📺 Proyector",
+        "💺 44 asientos"
+      ],
+      "id": "Aula_14c-007",
+      "mapa": "Planta Baja A-B-C"
+    },
+    "Aula_14c-103": {
+      "nombre": "Aula 14C-103",
+      "tipo": "Aula de Clases",
+      "info": "🏫 Bloque C - Piso 1\n💺 Capacidad: 44 estudiantes",
+      "servicios": [
+        "📶 WiFi",
+        "📺 Proyector",
+        "💺 44 asientos"
+      ],
+      "id": "Aula_14c-103",
+      "mapa": "Piso 1 A-B-C"
+    },
+    "Aula_Produccion": {
+      "nombre": "Aula de Producción",
+      "tipo": "Aula de Clases",
+      "info": "🏭 Aula de Producción - Bloque D\n💺 Capacidad: 44 estudiantes",
+      "servicios": [
+        "📶 WiFi",
+        "📺 Proyector",
+        "💺 44 asientos"
+      ],
+      "id": "Aula_Produccion",
+      "mapa": "Piso 1 D-G"
+    },
+    "Ba__o_Masculino": {
+      "nombre": "Baño Masculino (Planta Baja D-G)",
+      "tipo": "Servicio Higiénico",
+      "info": "🚻 Baño masculino",
+      "servicios": [],
+      "id": "Ba__o_Masculino",
+      "mapa": "Planta Baja D-E-F-G"
+    },
+    "Banio_1": {
+      "nombre": "Baño Campus",
+      "tipo": "Servicio Higiénico",
+      "info": "🚻 Baño de uso general",
+      "servicios": [],
+      "id": "Banio_1",
+      "mapa": "Campus"
+    },
+    "Banio_Femenino": {
+      "nombre": "Baño Femenino (Planta Baja D-G)",
+      "tipo": "Servicio Higiénico",
+      "info": "🚻 Baño femenino",
+      "servicios": [],
+      "id": "Banio_Femenino",
+      "mapa": "Planta Baja D-E-F-G"
+    },
+    "Banio_del_bloque_C": {
+      "nombre": "Baño Bloque C (Planta Baja)",
+      "tipo": "Servicio Higiénico",
+      "info": "🚻 Baño - Bloque C",
+      "servicios": [],
+      "id": "Banio_del_bloque_C",
+      "mapa": "Planta Baja A-B-C"
+    },
+    "Banios_Bloque_A_Primer_Piso_": {
+      "nombre": "Baño Bloque A (Piso 1)",
+      "tipo": "Servicio Higiénico",
+      "info": "🚻 Baño - Bloque A",
+      "servicios": [],
+      "id": "Banios_Bloque_A_Primer_Piso_",
+      "mapa": "Piso 1 A-B-C"
+    },
+    "Banios_Bloque_A_Segundo_Piso_": {
+      "nombre": "Baño Bloque A (Piso 2)",
+      "tipo": "Servicio Higiénico",
+      "info": "🚻 Baño - Bloque A",
+      "servicios": [],
+      "id": "Banios_Bloque_A_Segundo_Piso_",
+      "mapa": "Piso 2 A-B-C"
+    },
+    "Banios_Bloque_B_planta_baja": {
+      "nombre": "Baño Bloque B (Planta Baja)",
+      "tipo": "Servicio Higiénico",
+      "info": "🚻 Baño - Bloque B",
+      "servicios": [],
+      "id": "Banios_Bloque_B_planta_baja",
+      "mapa": "Planta Baja A-B-C"
+    },
+    "Banios_Bloque_G_primer_piso": {
+      "nombre": "Baño Bloque G (Piso 1)",
+      "tipo": "Servicio Higiénico",
+      "info": "🚻 Baño - Bloque G",
+      "servicios": [],
+      "id": "Banios_Bloque_G_primer_piso",
+      "mapa": "Piso 1 D-G"
+    },
+    "Banios_bloque_C_Segundo_piso": {
+      "nombre": "Baño Bloque C (Piso 2)",
+      "tipo": "Servicio Higiénico",
+      "info": "🚻 Baño - Bloque C",
+      "servicios": [],
+      "id": "Banios_bloque_C_Segundo_piso",
+      "mapa": "Piso 2 A-B-C"
+    },
+    "Banios_bloque_C_primer_piso": {
+      "nombre": "Baño Bloque C (Piso 1)",
+      "tipo": "Servicio Higiénico",
+      "info": "🚻 Baño - Bloque C",
+      "servicios": [],
+      "id": "Banios_bloque_C_primer_piso",
+      "mapa": "Piso 1 A-B-C"
+    },
+    "Biblioteca_de_la_Facultad_": {
+      "nombre": "Biblioteca de la Facultad",
+      "tipo": "Servicio Académico",
+      "info": "📚 Biblioteca de la FII",
+      "servicios": [
+        "📶 WiFi",
+        "❄️ AC",
+        "📚 Libros",
+        "🖥️ PCs",
+        "🔇 Silencio"
+      ],
+      "id": "Biblioteca_de_la_Facultad_",
+      "mapa": "Piso 1 A-B-C"
+    },
+    "Bloque_A": {
+      "nombre": "Bloque A",
+      "tipo": "Edificio Administrativo",
+      "info": "🏛️ Piso: Planta Baja, Piso 1 y Piso 2\n👥 Capacidad administrativa\n📋 Contiene: Decanato, Secretaría, Biblioteca, Investigación\n🕐 Horario: Lunes a Viernes 7:30 - 17:00",
+      "servicios": [
+        "📶 WiFi",
+        "❄️ AC",
+        "♿ Accesible"
+      ],
+      "id": "Bloque_A",
+      "mapa": "Campus"
+    },
+    "Bloque_B": {
+      "nombre": "Bloque B",
+      "tipo": "Edificio de Aulas y Laboratorios",
+      "info": "🏫 Pisos: Planta Baja, 1 y 2\n👥 Capacidad: ~200 estudiantes\n📋 Contiene: Aulas, Labs de Especialidad, Auditorio\n🕐 Horario: Lunes a Sábado 7:00 - 21:00",
+      "servicios": [
+        "📶 WiFi",
+        "📺 Proyector",
+        "❄️ AC"
+      ],
+      "id": "Bloque_B",
+      "mapa": "Campus"
+    },
+    "Bloque_C": {
+      "nombre": "Bloque C",
+      "tipo": "Edificio de Aulas y Laboratorios",
+      "info": "🏫 Pisos: Planta Baja, 1 y 2\n👥 Capacidad: ~250 estudiantes\n📋 Contiene: Aulas 14C, Lab Arduino, Dirección SI\n🕐 Horario: Lunes a Sábado 7:00 - 21:00",
+      "servicios": [
+        "📶 WiFi",
+        "📺 Proyector",
+        "❄️ AC"
+      ],
+      "id": "Bloque_C",
+      "mapa": "Campus"
+    },
+    "Bloque_D": {
+      "nombre": "Bloque D",
+      "tipo": "Edificio de Aulas",
+      "info": "🏫 Pisos: Planta Baja y Piso 1\n👥 Capacidad: ~150 estudiantes\n📋 Contiene: Aulas 14D-001 al 108\n🕐 Horario: Lunes a Sábado 7:00 - 21:00",
+      "servicios": [
+        "📶 WiFi",
+        "📺 Proyector"
+      ],
+      "id": "Bloque_D",
+      "mapa": "Campus"
+    },
+    "Bloque_F": {
+      "nombre": "Bloque F",
+      "tipo": "Edificio Mixto",
+      "info": "🏫 Uso: Aulas y oficinas\n👥 Capacidad: ~100 estudiantes\n🕐 Horario: Lunes a Viernes 7:00 - 19:00",
+      "servicios": [
+        "📶 WiFi",
+        "📺 Proyector"
+      ],
+      "id": "Bloque_F",
+      "mapa": "Campus"
+    },
+    "Bloque_G": {
+      "nombre": "Bloque G",
+      "tipo": "Edificio de Laboratorios",
+      "info": "🔬 Pisos: Planta Baja y Piso 1\n👥 Capacidad: ~120 estudiantes\n🕐 Horario: Lunes a Viernes 7:00 - 19:00",
+      "servicios": [
+        "📶 WiFi",
+        "🔬 Equipo especializado"
+      ],
+      "id": "Bloque_G",
+      "mapa": "Campus"
+    },
+    "Bodega": {
+      "nombre": "Bodega",
+      "tipo": "Almacén",
+      "info": "📦 Bodega de materiales - Bloque G",
+      "servicios": [],
+      "id": "Bodega",
+      "mapa": "Planta Baja D-E-F-G"
+    },
+    "Cafeteria_": {
+      "nombre": "Cafetería",
+      "tipo": "Servicio de Alimentación",
+      "info": "🍽️ Servicio de comida y bebidas\n🕐 Horario: Lunes a Viernes 7:00 - 18:00",
+      "servicios": [
+        "🍽️ Comida",
+        "☕ Bebidas",
+        "🪑 Mesas"
+      ],
+      "id": "Cafeteria_",
+      "mapa": "Campus"
+    },
+    "Consejeria_": {
+      "nombre": "Consejería",
+      "tipo": "Servicio Estudiantil",
+      "info": "🤝 Atención y consejería estudiantil",
+      "servicios": [
+        "📶 WiFi",
+        "❄️ AC",
+        "🤝 Atención personalizada"
+      ],
+      "id": "Consejeria_",
+      "mapa": "Planta Baja A-B-C"
+    },
+    "Coordinacion_de_Internacionalizacion_": {
+      "nombre": "Coordinación de Internacionalización",
+      "tipo": "Oficina Académica",
+      "info": "🌎 Coordinación de Internacionalización",
+      "servicios": [
+        "📶 WiFi",
+        "❄️ AC",
+        "📋 Atención estudiantes"
+      ],
+      "id": "Coordinacion_de_Internacionalizacion_",
+      "mapa": "Piso 1 A-B-C"
+    },
+    "Coordinacion_de_Nivelacion_": {
+      "nombre": "Coordinación de Nivelación (Piso 1)",
+      "tipo": "Oficina Académica",
+      "info": "📋 Coordinación de Nivelación - Piso 1",
+      "servicios": [
+        "📶 WiFi",
+        "❄️ AC"
+      ],
+      "id": "Coordinacion_de_Nivelacion_",
+      "mapa": "Piso 1 A-B-C"
+    },
+    "Coordinacion_de_acreditacion_": {
+      "nombre": "Coordinación de Acreditación",
+      "tipo": "Oficina Académica",
+      "info": "📋 Coordinación de Acreditación",
+      "servicios": [
+        "📶 WiFi",
+        "❄️ AC",
+        "🖨️ Impresora"
+      ],
+      "id": "Coordinacion_de_acreditacion_",
+      "mapa": "Piso 1 A-B-C"
+    },
+    "Coordinacion_de_investigacion": {
+      "nombre": "Coordinación de Investigación",
+      "tipo": "Oficina Académica",
+      "info": "🔬 Coordinación de Investigación",
+      "servicios": [
+        "📶 WiFi",
+        "❄️ AC",
+        "📋 Atención investigadores"
+      ],
+      "id": "Coordinacion_de_investigacion",
+      "mapa": "Piso 1 A-B-C"
+    },
+    "Coordinacion_de_nivelacion_": {
+      "nombre": "Coordinación de Nivelación",
+      "tipo": "Oficina Académica",
+      "info": "📋 Coordinación de Nivelación",
+      "servicios": [
+        "📶 WiFi",
+        "❄️ AC",
+        "📋 Atención estudiantes"
+      ],
+      "id": "Coordinacion_de_nivelacion_",
+      "mapa": "Planta Baja A-B-C"
+    },
+    "Decanato": {
+      "nombre": "Decanato",
+      "tipo": "Oficina Administrativa",
+      "info": "👨‍💼 Autoridad máxima de la Facultad\n📋 Trámites: Solicitudes, permisos, recursos\n🕐 Horario: Lunes a Viernes 8:00 - 16:00",
+      "servicios": [
+        "📶 WiFi",
+        "❄️ AC",
+        "🖨️ Impresora",
+        "📋 Atención al público"
+      ],
+      "id": "Decanato",
+      "mapa": "Planta Baja A-B-C"
+    },
+    "Departamento_de_Postgrado": {
+      "nombre": "Postgrado y Doctorado",
+      "tipo": "Departamento Académico",
+      "info": "🎓 Programas de Maestría y Doctorado",
+      "servicios": [
+        "📶 WiFi",
+        "❄️ AC",
+        "📋 Atención estudiantes"
+      ],
+      "id": "Departamento_de_Postgrado",
+      "mapa": "Planta Baja A-B-C"
+    },
+    "Departamento_de_Titulacion": {
+      "nombre": "Departamento de Titulación",
+      "tipo": "Oficina Académica",
+      "info": "🎓 Gestión de procesos de titulación",
+      "servicios": [
+        "📶 WiFi",
+        "❄️ AC",
+        "📋 Trámites titulación"
+      ],
+      "id": "Departamento_de_Titulacion",
+      "mapa": "Piso 1 A-B-C"
+    },
+    "Departamento_de_Vinculacion_con_la_Sociedad": {
+      "nombre": "Vinculación con la Sociedad",
+      "tipo": "Oficina Académica",
+      "info": "🤝 Departamento de Vinculación con la Sociedad",
+      "servicios": [
+        "📶 WiFi",
+        "❄️ AC",
+        "📋 Atención"
+      ],
+      "id": "Departamento_de_Vinculacion_con_la_Sociedad",
+      "mapa": "Piso 1 A-B-C"
+    },
+    "Direccion_de_carrera_Telematica": {
+      "nombre": "Dirección de Carrera Telemática",
+      "tipo": "Oficina Académica",
+      "info": "📡 Dirección de Carrera de Telemática",
+      "servicios": [
+        "📶 WiFi",
+        "❄️ AC",
+        "📋 Atención estudiantes"
+      ],
+      "id": "Direccion_de_carrera_Telematica",
+      "mapa": "Piso 2 A-B-C"
+    },
+    "Direccion_de_carrera_de_ingenieria_industrial": {
+      "nombre": "Dirección de Carrera Industrial",
+      "tipo": "Oficina Académica",
+      "info": "🏭 Dirección de Ingeniería Industrial",
+      "servicios": [
+        "📶 WiFi",
+        "❄️ AC",
+        "📋 Atención estudiantes"
+      ],
+      "id": "Direccion_de_carrera_de_ingenieria_industrial",
+      "mapa": "Planta Baja A-B-C"
+    },
+    "Direccion_de_carrera_de_sistemas_de_informacion": {
+      "nombre": "Dirección de Carrera SI",
+      "tipo": "Oficina Académica",
+      "info": "💻 Dirección de Carrera de Sistemas de Información",
+      "servicios": [
+        "📶 WiFi",
+        "❄️ AC",
+        "📋 Atención estudiantes"
+      ],
+      "id": "Direccion_de_carrera_de_sistemas_de_informacion",
+      "mapa": "Piso 1 A-B-C"
+    },
+    "Entrada_principal": {
+      "nombre": "Entrada Principal",
+      "tipo": "Acceso",
+      "info": "🚪 Ingreso principal al campus",
+      "servicios": [],
+      "id": "Entrada_principal",
+      "mapa": "Campus"
+    },
+    "Escaleras_Bloque_G_planta_baja_": {
+      "nombre": "Escaleras Bloque G (Planta Baja)",
+      "tipo": "Circulación",
+      "info": "🪜 Escaleras del Bloque G, Planta Baja",
+      "servicios": [],
+      "id": "Escaleras_Bloque_G_planta_baja_",
+      "mapa": "Planta Baja D-E-F-G"
+    },
+    "Escaleras_Bloque_G_primer_piso": {
+      "nombre": "Escaleras Bloque G (Piso 1)",
+      "tipo": "Circulación",
+      "info": "🪜 Escaleras del Bloque G, Piso 1",
+      "servicios": [],
+      "id": "Escaleras_Bloque_G_primer_piso",
+      "mapa": "Piso 1 D-G"
+    },
+    "Escaleras_Primer_piso_izquierda": {
+      "nombre": "Escaleras Piso 1 (izquierda)",
+      "tipo": "Circulación",
+      "info": "🪜 Escaleras - lado izquierdo, Piso 1",
+      "servicios": [],
+      "id": "Escaleras_Primer_piso_izquierda",
+      "mapa": "Piso 1 A-B-C"
+    },
+    "Escaleras_Segundo_piso_derecha": {
+      "nombre": "Escaleras Piso 2 (derecha)",
+      "tipo": "Circulación",
+      "info": "🪜 Escaleras - lado derecho, Piso 2",
+      "servicios": [],
+      "id": "Escaleras_Segundo_piso_derecha",
+      "mapa": "Piso 2 A-B-C"
+    },
+    "Escaleras_Segundo_piso_izquierda": {
+      "nombre": "Escaleras Piso 2 (izquierda)",
+      "tipo": "Circulación",
+      "info": "🪜 Escaleras - lado izquierdo, Piso 2",
+      "servicios": [],
+      "id": "Escaleras_Segundo_piso_izquierda",
+      "mapa": "Piso 2 A-B-C"
+    },
+    "Escaleras_general_campus": {
+      "nombre": "Escaleras Izquierda",
+      "tipo": "Circulación",
+      "info": "🪜 Acceso entre niveles",
+      "servicios": [],
+      "id": "Escaleras_general_campus",
+      "mapa": "Campus"
+    },
+    "Escaleras_planta_baja_": {
+      "nombre": "Escaleras (lado A)",
+      "tipo": "Circulación",
+      "info": "🪜 Escaleras - Planta Baja, lado Bloque A",
+      "servicios": [],
+      "id": "Escaleras_planta_baja_",
+      "mapa": "Planta Baja A-B-C"
+    },
+    "Escaleras_planta_baja_2": {
+      "nombre": "Escaleras (lado B/C)",
+      "tipo": "Circulación",
+      "info": "🪜 Escaleras - Planta Baja, lado Bloque B/C",
+      "servicios": [],
+      "id": "Escaleras_planta_baja_2",
+      "mapa": "Planta Baja A-B-C"
+    },
+    "Ingenieria_de_Planta": {
+      "nombre": "Oficina Ingeniería de Planta",
+      "tipo": "Oficina Académica",
+      "info": "🏭 Oficina de Ingeniería de Planta",
+      "servicios": [
+        "📶 WiFi",
+        "❄️ AC"
+      ],
+      "id": "Ingenieria_de_Planta",
+      "mapa": "Planta Baja D-E-F-G"
+    },
+    "Instituto_de_Investigacion_": {
+      "nombre": "Instituto de Investigación",
+      "tipo": "Centro Académico",
+      "info": "🔬 Instituto de Investigación",
+      "servicios": [
+        "📶 WiFi",
+        "❄️ AC",
+        "🔬 Equipo de investigación"
+      ],
+      "id": "Instituto_de_Investigacion_",
+      "mapa": "Piso 1 A-B-C"
+    },
+    "LAB_COMP_14_A-101": {
+      "nombre": "Lab. Comp. 14A-101",
+      "tipo": "Laboratorio de Computación",
+      "info": "💻 Bloque A - Piso 1\n💺 Capacidad: 44 estudiantes\n🖥️ 22 estaciones de trabajo",
+      "servicios": [
+        "📶 WiFi",
+        "📺 Proyector",
+        "🖥️ 22 PCs",
+        "❄️ AC"
+      ],
+      "id": "LAB_COMP_14_A-101",
+      "mapa": "Piso 1 A-B-C"
+    },
+    "LAB_COMP_14_A-201": {
+      "nombre": "Lab. Comp. 14A-201",
+      "tipo": "Laboratorio de Computación",
+      "info": "💻 Bloque A - Piso 2\n💺 Capacidad: 44 estudiantes\n🖥️ 22 estaciones de trabajo",
+      "servicios": [
+        "📶 WiFi",
+        "📺 Proyector",
+        "🖥️ 22 PCs",
+        "❄️ AC"
+      ],
+      "id": "LAB_COMP_14_A-201",
+      "mapa": "Piso 2 A-B-C"
+    },
+    "LAB_COMP_14_A-202": {
+      "nombre": "Lab. Comp. 14A-202",
+      "tipo": "Laboratorio de Computación",
+      "info": "💻 Bloque A - Piso 2\n💺 Capacidad: 44 estudiantes\n🖥️ 22 estaciones de trabajo",
+      "servicios": [
+        "📶 WiFi",
+        "📺 Proyector",
+        "🖥️ 22 PCs",
+        "❄️ AC"
+      ],
+      "id": "LAB_COMP_14_A-202",
+      "mapa": "Piso 2 A-B-C"
+    },
+    "LAB_ESP_14B-001": {
+      "nombre": "Lab. Esp. 14B-001",
+      "tipo": "Laboratorio",
+      "info": "🔬 Laboratorio especializado - Bloque B\n💺 Capacidad: 44 estudiantes",
+      "servicios": [
+        "📶 WiFi",
+        "📺 Proyector",
+        "🔬 Equipo especializado"
+      ],
+      "id": "LAB_ESP_14B-001",
+      "mapa": "Planta Baja A-B-C"
+    },
+    "LAB_ESP_14B-002": {
+      "nombre": "Lab. Esp. 14B-002",
+      "tipo": "Laboratorio",
+      "info": "🔬 Laboratorio especializado - Bloque B\n💺 Capacidad: 44 estudiantes",
+      "servicios": [
+        "📶 WiFi",
+        "📺 Proyector",
+        "🔬 Equipo especializado"
+      ],
+      "id": "LAB_ESP_14B-002",
+      "mapa": "Planta Baja A-B-C"
+    },
+    "Lab_Comp_14B-101": {
+      "nombre": "Lab. Comp. 14B-101",
+      "tipo": "Laboratorio de Computación",
+      "info": "💻 Bloque B - Piso 1\n💺 Capacidad: 44 estudiantes\n🖥️ 22 estaciones de trabajo",
+      "servicios": [
+        "📶 WiFi",
+        "📺 Proyector",
+        "🖥️ 22 PCs",
+        "❄️ AC"
+      ],
+      "id": "Lab_Comp_14B-101",
+      "mapa": "Piso 1 A-B-C"
+    },
+    "Lab_Comp_14B-103": {
+      "nombre": "Lab. Comp. 14B-103",
+      "tipo": "Laboratorio de Computación",
+      "info": "💻 Bloque B - Piso 1\n💺 Capacidad: 44 estudiantes\n🖥️ 22 estaciones de trabajo",
+      "servicios": [
+        "📶 WiFi",
+        "📺 Proyector",
+        "🖥️ 22 PCs",
+        "❄️ AC"
+      ],
+      "id": "Lab_Comp_14B-103",
+      "mapa": "Piso 1 A-B-C"
+    },
+    "Lab_Comp_14B-201": {
+      "nombre": "Lab. Comp./Esp. 14B-201",
+      "tipo": "Laboratorio",
+      "info": "🔬 Bloque B - Piso 2\n💺 Capacidad: 44 estudiantes\n🖥️ 22 estaciones",
+      "servicios": [
+        "📶 WiFi",
+        "📺 Proyector",
+        "🖥️ 22 PCs",
+        "❄️ AC"
+      ],
+      "id": "Lab_Comp_14B-201",
+      "mapa": "Piso 2 A-B-C"
+    },
+    "Lab_Comp_14B-202": {
+      "nombre": "Lab. Comp. 14B-202",
+      "tipo": "Laboratorio de Computación",
+      "info": "💻 Bloque B - Piso 2\n💺 Capacidad: 44 estudiantes\n🖥️ 22 estaciones",
+      "servicios": [
+        "📶 WiFi",
+        "📺 Proyector",
+        "🖥️ 22 PCs",
+        "❄️ AC"
+      ],
+      "id": "Lab_Comp_14B-202",
+      "mapa": "Piso 2 A-B-C"
+    },
+    "Lab_Comp_14c-101": {
+      "nombre": "Lab. Comp. 14C-101",
+      "tipo": "Laboratorio de Computación",
+      "info": "💻 Bloque C - Piso 1\n💺 Capacidad: 44 estudiantes\n🖥️ 22 estaciones de trabajo",
+      "servicios": [
+        "📶 WiFi",
+        "📺 Proyector",
+        "🖥️ 22 PCs",
+        "❄️ AC"
+      ],
+      "id": "Lab_Comp_14c-101",
+      "mapa": "Piso 1 A-B-C"
+    },
+    "Lab_Comp_14c-102": {
+      "nombre": "Lab. Comp. 14C-102",
+      "tipo": "Laboratorio de Computación",
+      "info": "💻 Bloque C - Piso 1\n💺 Capacidad: 44 estudiantes\n🖥️ 22 estaciones de trabajo",
+      "servicios": [
+        "📶 WiFi",
+        "📺 Proyector",
+        "🖥️ 22 PCs",
+        "❄️ AC"
+      ],
+      "id": "Lab_Comp_14c-102",
+      "mapa": "Piso 1 A-B-C"
+    },
+    "Lab_Esp_14B-101": {
+      "nombre": "Lab. Esp. 14B-101",
+      "tipo": "Laboratorio",
+      "info": "🔬 Bloque B - Piso 1\n💺 Capacidad: 44 estudiantes",
+      "servicios": [
+        "📶 WiFi",
+        "📺 Proyector",
+        "🔬 Equipo especializado"
+      ],
+      "id": "Lab_Esp_14B-101",
+      "mapa": "Piso 1 A-B-C"
+    },
+    "Lab_comp_14C-201": {
+      "nombre": "Lab. Comp. 14C-201",
+      "tipo": "Laboratorio de Computación",
+      "info": "💻 Bloque C - Piso 2\n💺 Capacidad: 44 estudiantes\n🖥️ 22 estaciones",
+      "servicios": [
+        "📶 WiFi",
+        "📺 Proyector",
+        "🖥️ 22 PCs",
+        "❄️ AC"
+      ],
+      "id": "Lab_comp_14C-201",
+      "mapa": "Piso 2 A-B-C"
+    },
+    "Lab_comp_14C-202": {
+      "nombre": "Lab. Comp. 14C-202",
+      "tipo": "Laboratorio de Computación",
+      "info": "💻 Bloque C - Piso 2\n💺 Capacidad: 44 estudiantes\n🖥️ 22 estaciones",
+      "servicios": [
+        "📶 WiFi",
+        "📺 Proyector",
+        "🖥️ 22 PCs",
+        "❄️ AC"
+      ],
+      "id": "Lab_comp_14C-202",
+      "mapa": "Piso 2 A-B-C"
+    },
+    "Lab_comp_14C-203": {
+      "nombre": "Lab. Comp. 14C-203",
+      "tipo": "Laboratorio de Computación",
+      "info": "💻 Bloque C - Piso 2\n💺 Capacidad: 44 estudiantes\n🖥️ 22 estaciones",
+      "servicios": [
+        "📶 WiFi",
+        "📺 Proyector",
+        "🖥️ 22 PCs",
+        "❄️ AC"
+      ],
+      "id": "Lab_comp_14C-203",
+      "mapa": "Piso 2 A-B-C"
+    },
+    "Lab_comp_14C-204": {
+      "nombre": "Lab. Comp. 14C-204",
+      "tipo": "Laboratorio de Computación",
+      "info": "💻 Bloque C - Piso 2\n💺 Capacidad: 44 estudiantes\n🖥️ 22 estaciones",
+      "servicios": [
+        "📶 WiFi",
+        "📺 Proyector",
+        "🖥️ 22 PCs",
+        "❄️ AC"
+      ],
+      "id": "Lab_comp_14C-204",
+      "mapa": "Piso 2 A-B-C"
+    },
+    "Laboratorio_Academico_de_gestion_": {
+      "nombre": "Lab. Académico de Gestión de la Producción",
+      "tipo": "Laboratorio",
+      "info": "📊 Gestión de la producción\n💺 Capacidad: 44 estudiantes\n🖥️ 22 estaciones",
+      "servicios": [
+        "📶 WiFi",
+        "📺 Proyector",
+        "🖥️ 22 PCs",
+        "❄️ AC"
+      ],
+      "id": "Laboratorio_Academico_de_gestion_",
+      "mapa": "Piso 1 D-G"
+    },
+    "Laboratorio_Da_Vinci": {
+      "nombre": "Laboratorio Da Vinci de Proyectos",
+      "tipo": "Laboratorio",
+      "info": "🛠️ Laboratorio Da Vinci de Proyectos",
+      "servicios": [
+        "📶 WiFi",
+        "📺 Proyector",
+        "🛠️ Herramientas",
+        "🖥️ PCs"
+      ],
+      "id": "Laboratorio_Da_Vinci",
+      "mapa": "Piso 2 A-B-C"
+    },
+    "Laboratorio_Industrial": {
+      "nombre": "Laboratorio Industrial",
+      "tipo": "Laboratorio",
+      "info": "🏭 Prácticas de ingeniería industrial\n🏢 Bloque G - Planta Baja\n💺 Capacidad: 44 estudiantes",
+      "servicios": [
+        "📶 WiFi",
+        "📺 Proyector",
+        "🔬 Equipo industrial",
+        "🦺 EPP requerido"
+      ],
+      "id": "Laboratorio_Industrial",
+      "mapa": "Planta Baja D-E-F-G"
+    },
+    "Laboratorio_de_Arduino": {
+      "nombre": "Laboratorio de Arduino",
+      "tipo": "Laboratorio",
+      "info": "🔌 Prácticas con Arduino - Bloque C\n💺 Capacidad: 44 estudiantes\n🖥️ 22 estaciones",
+      "servicios": [
+        "📶 WiFi",
+        "📺 Proyector",
+        "🖥️ 22 PCs",
+        "🔌 Arduino"
+      ],
+      "id": "Laboratorio_de_Arduino",
+      "mapa": "Planta Baja A-B-C"
+    },
+    "Laboratorio_de_CNC": {
+      "nombre": "Laboratorio de CNC",
+      "tipo": "Laboratorio",
+      "info": "⚙️ Control numérico computarizado\n🏢 Bloque G - Planta Baja\n💺 Capacidad: 44 estudiantes",
+      "servicios": [
+        "📶 WiFi",
+        "📺 Proyector",
+        "⚙️ Máquinas CNC",
+        "🦺 EPP requerido"
+      ],
+      "id": "Laboratorio_de_CNC",
+      "mapa": "Planta Baja D-E-F-G"
+    },
+    "Laboratorio_de_Electricidad_y_Electronica": {
+      "nombre": "Laboratorio de Electricidad y Electrónica",
+      "tipo": "Laboratorio",
+      "info": "⚡ Prácticas eléctricas y electrónicas\n🏢 Bloque F - Planta Baja\n💺 Capacidad: 44 estudiantes",
+      "servicios": [
+        "📶 WiFi",
+        "📺 Proyector",
+        "⚡ Equipo eléctrico",
+        "🦺 EPP requerido"
+      ],
+      "id": "Laboratorio_de_Electricidad_y_Electronica",
+      "mapa": "Planta Baja D-E-F-G"
+    },
+    "Laboratorio_de_Networking": {
+      "nombre": "Laboratorio de Networking",
+      "tipo": "Laboratorio",
+      "info": "🌐 Equipamiento de redes y telecomunicaciones\n🏢 Bloque G - Piso 1\n💺 Capacidad: 44 estudiantes\n🖥️ 22 estaciones",
+      "servicios": [
+        "📶 WiFi",
+        "📺 Proyector",
+        "🖥️ 22 PCs",
+        "🌐 Equipo de redes",
+        "❄️ AC"
+      ],
+      "id": "Laboratorio_de_Networking",
+      "mapa": "Piso 1 D-G"
+    },
+    "Laboratorio_de_Robotica_y_Automatismo": {
+      "nombre": "Laboratorio de Robótica y Automatismo",
+      "tipo": "Laboratorio",
+      "info": "🤖 Robótica industrial\n🏢 Bloque G - Planta Baja\n💺 Capacidad: 44 estudiantes",
+      "servicios": [
+        "📶 WiFi",
+        "📺 Proyector",
+        "🤖 Robots",
+        "🖥️ PCs"
+      ],
+      "id": "Laboratorio_de_Robotica_y_Automatismo",
+      "mapa": "Planta Baja D-E-F-G"
+    },
+    "Observatorio_de_Produccion_Industria": {
+      "nombre": "Observatorio de Producción Industrial",
+      "tipo": "Centro Académico",
+      "info": "🏭 Observatorio de Producción Industrial, Convencional y Sostenible",
+      "servicios": [
+        "📶 WiFi",
+        "📺 Proyector",
+        "🖥️ Equipos"
+      ],
+      "id": "Observatorio_de_Produccion_Industria",
+      "mapa": "Planta Baja A-B-C"
+    },
+    "Oficina_1": {
+      "nombre": "Oficina 1 (Bloque D)",
+      "tipo": "Oficina Académica",
+      "info": "📋 Oficina administrativa - Bloque D",
+      "servicios": [
+        "📶 WiFi",
+        "❄️ AC"
+      ],
+      "id": "Oficina_1",
+      "mapa": "Piso 1 D-G"
+    },
+    "Oficina_2": {
+      "nombre": "Oficina 2 (Bloque D)",
+      "tipo": "Oficina Académica",
+      "info": "📋 Oficina administrativa - Bloque D",
+      "servicios": [
+        "📶 WiFi",
+        "❄️ AC"
+      ],
+      "id": "Oficina_2",
+      "mapa": "Piso 1 D-G"
+    },
+    "Paneles_Electricos": {
+      "nombre": "Paneles Eléctricos 1",
+      "tipo": "Cuarto Técnico",
+      "info": "⚡ Paneles eléctricos - Bloque G",
+      "servicios": [],
+      "id": "Paneles_Electricos",
+      "mapa": "Planta Baja D-E-F-G"
+    },
+    "Paneles_Electricos_2": {
+      "nombre": "Paneles Eléctricos 2",
+      "tipo": "Cuarto Técnico",
+      "info": "⚡ Paneles eléctricos - Bloque G",
+      "servicios": [],
+      "id": "Paneles_Electricos_2",
+      "mapa": "Planta Baja D-E-F-G"
+    },
+    "Parqueadero_": {
+      "nombre": "Parqueadero",
+      "tipo": "Área de Estacionamiento",
+      "info": "🚗 Estacionamiento docentes y administrativos",
+      "servicios": [
+        "🚗 Vehículos",
+        "🏍️ Motos"
+      ],
+      "id": "Parqueadero_",
+      "mapa": "Campus"
+    },
+    "Parqueadero_1": {
+      "nombre": "Parqueadero 2",
+      "tipo": "Área de Estacionamiento",
+      "info": "🚗 Estacionamiento adicional",
+      "servicios": [
+        "🚗 Vehículos",
+        "🏍️ Motos"
+      ],
+      "id": "Parqueadero_1",
+      "mapa": "Campus"
+    },
+    "Pasillo_Escalera_Bloque_D_primer_piso": {
+      "nombre": "Escaleras Bloque D (Piso 1)",
+      "tipo": "Circulación",
+      "info": "🪜 Escaleras del Bloque D, Piso 1",
+      "servicios": [],
+      "id": "Pasillo_Escalera_Bloque_D_primer_piso",
+      "mapa": "Piso 1 D-G"
+    },
+    "Sala_de_Conferencias_y_Postgrado": {
+      "nombre": "Sala de Conferencias y Postgrado",
+      "tipo": "Sala Académica",
+      "info": "🎓 Conferencias y clases de Postgrado",
+      "servicios": [
+        "📶 WiFi",
+        "📺 Proyector",
+        "❄️ AC",
+        "🎤 Micrófono"
+      ],
+      "id": "Sala_de_Conferencias_y_Postgrado",
+      "mapa": "Piso 1 D-G"
+    },
+    "Sala_de_Profesores_de_sistemas_de_informacion_": {
+      "nombre": "Sala de Profesores SI",
+      "tipo": "Sala Docente",
+      "info": "👨‍🏫 Sala de Profesores - Sistemas de Información",
+      "servicios": [
+        "📶 WiFi",
+        "❄️ AC",
+        "☕ Cafetera",
+        "🖨️ Impresora"
+      ],
+      "id": "Sala_de_Profesores_de_sistemas_de_informacion_",
+      "mapa": "Piso 1 A-B-C"
+    },
+    "Sala_de_profesores_Telematica": {
+      "nombre": "Sala de Profesores Telemática",
+      "tipo": "Sala Docente",
+      "info": "👨‍🏫 Sala de Profesores - Telemática",
+      "servicios": [
+        "📶 WiFi",
+        "❄️ AC",
+        "☕ Cafetera",
+        "🖨️ Impresora"
+      ],
+      "id": "Sala_de_profesores_Telematica",
+      "mapa": "Piso 2 A-B-C"
+    },
+    "Sala_de_profesores_industrial_": {
+      "nombre": "Sala de Profesores Industrial",
+      "tipo": "Sala Docente",
+      "info": "👨‍🏫 Uso exclusivo docentes\n💺 Capacidad: 20 personas",
+      "servicios": [
+        "📶 WiFi",
+        "❄️ AC",
+        "☕ Cafetera",
+        "🖨️ Impresora"
+      ],
+      "id": "Sala_de_profesores_industrial_",
+      "mapa": "Planta Baja A-B-C"
+    },
+    "Sala_de_reuniones_y_tutorias_Telematica": {
+      "nombre": "Sala de Reuniones - Telemática",
+      "tipo": "Sala Académica",
+      "info": "🤝 Reuniones y tutorías de Telemática",
+      "servicios": [
+        "📶 WiFi",
+        "📺 Proyector",
+        "❄️ AC"
+      ],
+      "id": "Sala_de_reuniones_y_tutorias_Telematica",
+      "mapa": "Piso 2 A-B-C"
+    },
+    "Sala_de_tutorias_Individuales_de_titulacion": {
+      "nombre": "Sala de Tutorías de Titulación",
+      "tipo": "Sala Académica",
+      "info": "📚 Para reuniones de titulación\n👥 Capacidad: 10 personas",
+      "servicios": [
+        "📶 WiFi",
+        "📺 Proyector",
+        "❄️ AC"
+      ],
+      "id": "Sala_de_tutorias_Individuales_de_titulacion",
+      "mapa": "Planta Baja A-B-C"
+    },
+    "Salas_de_profesores_industrial": {
+      "nombre": "Sala de Profesores Industrial (Piso 1)",
+      "tipo": "Sala Docente",
+      "info": "👨‍🏫 Uso exclusivo docentes",
+      "servicios": [
+        "📶 WiFi",
+        "❄️ AC",
+        "☕ Cafetera",
+        "🖨️ Impresora"
+      ],
+      "id": "Salas_de_profesores_industrial",
+      "mapa": "Piso 1 A-B-C"
+    },
+    "Salon_de_Estudio_": {
+      "nombre": "Salón de Estudio",
+      "tipo": "Sala Académica",
+      "info": "📚 Espacio de estudio para estudiantes",
+      "servicios": [
+        "📶 WiFi",
+        "💡 Iluminación",
+        "🪑 Mesas"
+      ],
+      "id": "Salon_de_Estudio_",
+      "mapa": "Planta Baja A-B-C"
+    },
+    "Secretaria_General_": {
+      "nombre": "Secretaría General",
+      "tipo": "Oficina Administrativa",
+      "info": "📝 Trámites académicos generales\n🕐 Horario: Lunes a Viernes 8:00 - 16:00",
+      "servicios": [
+        "📶 WiFi",
+        "❄️ AC",
+        "🖨️ Impresora",
+        "📋 Trámites"
+      ],
+      "id": "Secretaria_General_",
+      "mapa": "Planta Baja A-B-C"
+    },
+    "Secretaria_de_Decanato": {
+      "nombre": "Secretaría de Decanato",
+      "tipo": "Oficina Administrativa",
+      "info": "📝 Gestión de documentos del Decanato\n🕐 Horario: Lunes a Viernes 8:00 - 16:00",
+      "servicios": [
+        "📶 WiFi",
+        "❄️ AC",
+        "🖨️ Impresora",
+        "📋 Trámites"
+      ],
+      "id": "Secretaria_de_Decanato",
+      "mapa": "Planta Baja A-B-C"
+    },
+    "Sin_informacion": {
+      "nombre": "Enfermería",
+      "tipo": "Servicio de Salud",
+      "info": "🏥 Atención médica de urgencias\n👩‍⚕️ Personal: Médico y enfermera\n💊 Servicios: Primeros auxilios, consulta básica\n🕐 Horario: Lunes a Viernes 7:00 - 17:00",
+      "servicios": [
+        "💊 Primeros auxilios",
+        "👩‍⚕️ Médico",
+        "🩺 Consulta básica"
+      ],
+      "id": "Sin_informacion",
+      "mapa": "Planta Baja D-E-F-G"
+    },
+    "Subdecano": {
+      "nombre": "Subdecanato",
+      "tipo": "Oficina Administrativa",
+      "info": "👨‍💼 Oficina del Subdecano",
+      "servicios": [
+        "📶 WiFi",
+        "❄️ AC",
+        "📋 Atención al público"
+      ],
+      "id": "Subdecano",
+      "mapa": "Planta Baja A-B-C"
+    },
+    "Talento_Humano": {
+      "nombre": "Talento Humano",
+      "tipo": "Oficina Administrativa",
+      "info": "👥 Gestión de personal",
+      "servicios": [
+        "📶 WiFi",
+        "❄️ AC",
+        "🖨️ Impresora"
+      ],
+      "id": "Talento_Humano",
+      "mapa": "Planta Baja A-B-C"
+    },
+    "Taller_de_Soldadura": {
+      "nombre": "Taller de Soldadura",
+      "tipo": "Taller",
+      "info": "🔧 Prácticas de soldadura industrial\n🏢 Bloque D - Planta Baja\n💺 Capacidad: 44 estudiantes",
+      "servicios": [
+        "🔧 Equipo de soldadura",
+        "🦺 EPP requerido",
+        "🧯 Extintor"
+      ],
+      "id": "Taller_de_Soldadura",
+      "mapa": "Planta Baja D-E-F-G"
+    },
+    "area_verde_1_": {
+      "nombre": "Área Verde",
+      "tipo": "Zona Recreativa",
+      "info": "🌳 Espacio verde",
+      "servicios": [],
+      "id": "area_verde_1_",
+      "mapa": "Campus"
+    },
+    "area_verde_1_1": {
+      "nombre": "Área Verde 2",
+      "tipo": "Zona Recreativa",
+      "info": "🌳 Espacio verde",
+      "servicios": [],
+      "id": "area_verde_1_1",
+      "mapa": "Campus"
+    },
+    "aula_14B-201": {
+      "nombre": "Aula 14B-201",
+      "tipo": "Aula de Clases",
+      "info": "🏫 Bloque B - Piso 2\n💺 Capacidad: 44 estudiantes",
+      "servicios": [
+        "📶 WiFi",
+        "📺 Proyector",
+        "💺 44 asientos"
+      ],
+      "id": "aula_14B-201",
+      "mapa": "Piso 2 A-B-C"
+    },
+    "aula_14B-202": {
+      "nombre": "Aula 14B-202",
+      "tipo": "Aula de Clases",
+      "info": "🏫 Bloque B - Piso 2\n💺 Capacidad: 44 estudiantes",
+      "servicios": [
+        "📶 WiFi",
+        "📺 Proyector",
+        "💺 44 asientos"
+      ],
+      "id": "aula_14B-202",
+      "mapa": "Piso 2 A-B-C"
+    },
+    "aula_14a-201": {
+      "nombre": "Aula 14A-201",
+      "tipo": "Aula de Clases",
+      "info": "🏫 Bloque A - Piso 2\n💺 Capacidad: 44 estudiantes",
+      "servicios": [
+        "📶 WiFi",
+        "📺 Proyector",
+        "💺 44 asientos"
+      ],
+      "id": "aula_14a-201",
+      "mapa": "Piso 2 A-B-C"
+    },
+    "aula_14a-202": {
+      "nombre": "Aula 14A-202",
+      "tipo": "Aula de Clases",
+      "info": "🏫 Bloque A - Piso 2\n💺 Capacidad: 44 estudiantes",
+      "servicios": [
+        "📶 WiFi",
+        "📺 Proyector",
+        "💺 44 asientos"
+      ],
+      "id": "aula_14a-202",
+      "mapa": "Piso 2 A-B-C"
+    },
+    "aula_14a-203": {
+      "nombre": "Aula 14A-203",
+      "tipo": "Aula de Clases",
+      "info": "🏫 Bloque A - Piso 2\n💺 Capacidad: 44 estudiantes",
+      "servicios": [
+        "📶 WiFi",
+        "📺 Proyector",
+        "💺 44 asientos"
+      ],
+      "id": "aula_14a-203",
+      "mapa": "Piso 2 A-B-C"
+    },
+    "aula_14a-204": {
+      "nombre": "Aula 14A-204",
+      "tipo": "Aula de Clases",
+      "info": "🏫 Bloque A - Piso 2\n💺 Capacidad: 44 estudiantes",
+      "servicios": [
+        "📶 WiFi",
+        "📺 Proyector",
+        "💺 44 asientos"
+      ],
+      "id": "aula_14a-204",
+      "mapa": "Piso 2 A-B-C"
+    },
+    "aula_14a-205": {
+      "nombre": "Aula 14A-205",
+      "tipo": "Aula de Clases",
+      "info": "🏫 Bloque A - Piso 2\n💺 Capacidad: 44 estudiantes",
+      "servicios": [
+        "📶 WiFi",
+        "📺 Proyector",
+        "💺 44 asientos"
+      ],
+      "id": "aula_14a-205",
+      "mapa": "Piso 2 A-B-C"
+    },
+    "aula_14a-206": {
+      "nombre": "Aula 14A-206",
+      "tipo": "Aula de Clases",
+      "info": "🏫 Bloque A - Piso 2\n💺 Capacidad: 44 estudiantes",
+      "servicios": [
+        "📶 WiFi",
+        "📺 Proyector",
+        "💺 44 asientos"
+      ],
+      "id": "aula_14a-206",
+      "mapa": "Piso 2 A-B-C"
+    },
+    "aula_14c-101": {
+      "nombre": "Aula 14C-101",
+      "tipo": "Aula de Clases",
+      "info": "🏫 Bloque C - Piso 1\n💺 Capacidad: 44 estudiantes",
+      "servicios": [
+        "📶 WiFi",
+        "📺 Proyector",
+        "💺 44 asientos"
+      ],
+      "id": "aula_14c-101",
+      "mapa": "Piso 1 A-B-C"
+    },
+    "aula_14c-102": {
+      "nombre": "Aula 14C-102",
+      "tipo": "Aula de Clases",
+      "info": "🏫 Bloque C - Piso 1\n💺 Capacidad: 44 estudiantes",
+      "servicios": [
+        "📶 WiFi",
+        "📺 Proyector",
+        "💺 44 asientos"
+      ],
+      "id": "aula_14c-102",
+      "mapa": "Piso 1 A-B-C"
+    },
+    "aula_14c-201": {
+      "nombre": "Aula 14C-201",
+      "tipo": "Aula de Clases",
+      "info": "🏫 Bloque C - Piso 2\n💺 Capacidad: 44 estudiantes",
+      "servicios": [
+        "📶 WiFi",
+        "📺 Proyector",
+        "💺 44 asientos"
+      ],
+      "id": "aula_14c-201",
+      "mapa": "Piso 2 A-B-C"
+    },
+    "aula_14c-202": {
+      "nombre": "Aula 14C-202",
+      "tipo": "Aula de Clases",
+      "info": "🏫 Bloque C - Piso 2\n💺 Capacidad: 44 estudiantes",
+      "servicios": [
+        "📶 WiFi",
+        "📺 Proyector",
+        "💺 44 asientos"
+      ],
+      "id": "aula_14c-202",
+      "mapa": "Piso 2 A-B-C"
+    },
+    "aula_14c-205": {
+      "nombre": "Aula 14C-205",
+      "tipo": "Aula de Clases",
+      "info": "🏫 Bloque C - Piso 2\n💺 Capacidad: 44 estudiantes",
+      "servicios": [
+        "📶 WiFi",
+        "📺 Proyector",
+        "💺 44 asientos"
+      ],
+      "id": "aula_14c-205",
+      "mapa": "Piso 2 A-B-C"
+    },
+    "aula_14c-206": {
+      "nombre": "Aula 14C-206",
+      "tipo": "Aula de Clases",
+      "info": "🏫 Bloque C - Piso 2\n💺 Capacidad: 44 estudiantes",
+      "servicios": [
+        "📶 WiFi",
+        "📺 Proyector",
+        "💺 44 asientos"
+      ],
+      "id": "aula_14c-206",
+      "mapa": "Piso 2 A-B-C"
+    },
+    "bloque_E": {
+      "nombre": "Bloque E",
+      "tipo": "Edificio de Laboratorios",
+      "info": "🔬 Uso: Laboratorios especializados\n👥 Capacidad: ~80 estudiantes\n🕐 Horario: Lunes a Viernes 7:00 - 19:00",
+      "servicios": [
+        "📶 WiFi",
+        "🔬 Equipo especializado"
+      ],
+      "id": "bloque_E",
+      "mapa": "Campus"
+    },
+    "cancha_1": {
+      "nombre": "Cancha 1",
+      "tipo": "Área Deportiva",
+      "info": "⚽ Cancha deportiva",
+      "servicios": [
+        "⚽ Fútbol",
+        "🏀 Básquet"
+      ],
+      "id": "cancha_1",
+      "mapa": "Campus"
+    },
+    "cancha_2": {
+      "nombre": "Cancha 2",
+      "tipo": "Área Deportiva",
+      "info": "⚽ Cancha deportiva",
+      "servicios": [
+        "⚽ Fútbol",
+        "🏀 Básquet"
+      ],
+      "id": "cancha_2",
+      "mapa": "Campus"
+    },
+    "cancha_3": {
+      "nombre": "Cancha 3",
+      "tipo": "Área Deportiva",
+      "info": "⚽ Cancha deportiva",
+      "servicios": [
+        "⚽ Fútbol"
+      ],
+      "id": "cancha_3",
+      "mapa": "Campus"
+    },
+    "cancha_4": {
+      "nombre": "Cancha 4",
+      "tipo": "Área Deportiva",
+      "info": "⚽ Cancha deportiva",
+      "servicios": [
+        "⚽ Fútbol"
+      ],
+      "id": "cancha_4",
+      "mapa": "Campus"
+    },
+    "cancha_5": {
+      "nombre": "Cancha 5",
+      "tipo": "Área Deportiva",
+      "info": "⚽ Cancha deportiva",
+      "servicios": [
+        "⚽ Fútbol"
+      ],
+      "id": "cancha_5",
+      "mapa": "Campus"
+    },
+    "cancha_de_tierra_principal": {
+      "nombre": "Cancha de Tierra",
+      "tipo": "Área Deportiva",
+      "info": "⚽ Cancha principal de tierra",
+      "servicios": [
+        "⚽ Fútbol",
+        "🌳 Aire libre"
+      ],
+      "id": "cancha_de_tierra_principal",
+      "mapa": "Campus"
+    },
+    "secretaria_de_Vicedecanato": {
+      "nombre": "Secretaría de Vicedecanato",
+      "tipo": "Oficina Administrativa",
+      "info": "📝 Trámites del Vicedecanato",
+      "servicios": [
+        "📶 WiFi",
+        "❄️ AC",
+        "🖨️ Impresora"
+      ],
+      "id": "secretaria_de_Vicedecanato",
+      "mapa": "Planta Baja A-B-C"
+    }
+  }
+}

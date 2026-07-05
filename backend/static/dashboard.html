@@ -10,8 +10,6 @@
 <body>
 
 <div class="layout">
-
-  <!-- Sidebar -->
   <aside class="sidebar" id="sidebar">
     <div class="sidebar-brand">
       <div class="logo-box">UG</div>
@@ -20,23 +18,16 @@
         <span>Industrial</span>
       </div>
     </div>
-
     <div class="sidebar-search">
       <input type="text" placeholder="Buscar módulo...">
     </div>
-
-    <nav class="sidebar-nav" id="sidebarNav">
-      <!-- Se llena dinámicamente según el rol, ver dashboard.js -->
-    </nav>
+    <nav class="sidebar-nav" id="sidebarNav"></nav>
   </aside>
 
-  <!-- Contenido -->
   <div class="content">
-
-    <!-- Topbar -->
     <header class="topbar">
       <button class="hamburger" id="hamburger">☰</button>
-      <div class="topbar-period">📅 Periodo <strong id="periodoActual">2026</strong></div>
+      <div class="topbar-period">📅 Periodo <strong>2026</strong></div>
       <div class="topbar-right">
         <span class="bell">🔔</span>
         <div class="user-chip">
@@ -50,57 +41,11 @@
       </div>
     </header>
 
-    <main class="main">
-
-      <!-- Hero -->
-      <section class="hero-card">
-        <div>
-          <h2>Hola, <span id="heroName">Usuario</span> 👋</h2>
-          <p id="heroSubtitle">Gestiona y supervisa los espacios de la facultad.</p>
-        </div>
-        <div class="hero-badge">Sistema de Gestión de Espacios</div>
-      </section>
-
-      <!-- Stat cards -->
-      <section class="stats-grid" id="statsGrid">
-        <!-- Se llenan dinámicamente según el rol -->
-      </section>
-
-      <!-- Gráfico + panel lateral -->
-      <section class="charts-row">
-        <div class="chart-card" id="chartCard">
-          <h3>⭐ Espacios más favoriteados</h3>
-          <canvas id="espaciosChart" height="220"></canvas>
-        </div>
-
-        <div class="side-panel" id="sidePanel">
-          <!-- Contenido dinámico: auditoría reciente, ranking, etc. -->
-        </div>
-      </section>
-
-      <div class="chart-card" id="mapaCard" style="display:none">
-  <h3>🗺️ Mapa de popularidad</h3>
-  <div style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:12px">
-    <select id="mapaSelect" style="padding:6px 10px;border-radius:6px;border:1px solid #dde3ea">
-      <option value="campus_general">Campus general</option>
-      <option value="planta_baja">Planta baja (A B C)</option>
-      <option value="planta_baja_defg">Planta baja (D E F G)</option>
-      <option value="primer_piso_abc">Primer piso (A B C)</option>
-      <option value="primer_piso_dg">Primer piso (D G)</option>
-      <option value="segundo_piso_abc">Segundo piso (A B C)</option>
-    </select>
-    <label style="font-size:13px"><input type="radio" name="metricaMapa" value="favoritos" checked> Favoritos</label>
-    <label style="font-size:13px"><input type="radio" name="metricaMapa" value="busquedas"> Búsquedas</label>
-  </div>
-  <svg id="mapaSvg" viewBox="0 0 680 420" style="width:100%;height:auto"></svg>
-  <div id="mapaInfo" style="margin-top:8px;font-size:12.5px;color:#6b7280"></div>
-</div>
-
-    </main>
+    <main class="main" id="contenido"></main>
   </div>
 </div>
 
 <script type="module" src="js/firebase-config.js"></script>
-<script type="module" src="js/dashboard.js"></script>
+<script type="module" src="js/dashboard-shell.js"></script>
 </body>
 </html>

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Acceso Visitante</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+<div class="login-shell">
+  <div class="login-panel">
+    <div class="login-left">
+      <span class="eyebrow">ACCESO VISITANTE</span>
+      <h1>Consulta tus datos</h1>
+
+      <form id="visitanteForm">
+        <div class="field">
+          <label for="cedula">Número de cédula</label>
+          <div class="field-row">
+            <input type="text" id="cedula" placeholder="0944128396" required>
+            <span class="field-icon">🪪</span>
+          </div>
+        </div>
+
+        <p id="errorMsg" class="error-msg"></p>
+
+        <button type="submit" class="btn-login" id="btnBuscar">Ver mis datos</button>
+      </form>
+
+      <p class="signup-note">¿Tienes cuenta administrativa? <a href="login.html">Iniciar sesión</a></p>
+    </div>
+
+    <div class="login-right">
+      <h2>TUS<br>ESPACIOS</h2>
+      <p>Consulta tus lugares favoritos y búsquedas guardadas desde la app móvil.</p>
+    </div>
+  </div>
+</div>
+
+<script type="module" src="js/visitante-init.js"></script>
+</body>
+</html>

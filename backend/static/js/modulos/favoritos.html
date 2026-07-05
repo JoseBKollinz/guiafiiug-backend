@@ -1,0 +1,24 @@
+<div class="chart-card">
+  <h3>⭐ Ranking de espacios favoritos</h3>
+  <div id="rankingFavoritos"></div>
+</div>
+
+<div class="chart-card" style="margin-top:16px">
+  <div style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:12px">
+    <select id="mapaSelect" style="padding:6px 10px;border-radius:6px;border:1px solid #dde3ea">
+      <option value="campus_general">Campus general</option>
+      <option value="planta_baja">Planta baja (A B C)</option>
+      <option value="planta_baja_defg">Planta baja (D E F G)</option>
+      <option value="primer_piso_abc">Primer piso (A B C)</option>
+      <option value="primer_piso_dg">Primer piso (D G)</option>
+      <option value="segundo_piso_abc">Segundo piso (A B C)</option>
+    </select>
+  </div>
+  <svg id="mapaSvg" viewBox="0 0 820 560" style="width:100%;height:auto"></svg>
+</div>
+
+<div class="chart-card" style="margin-top:16px">
+  <h3>👥 Favoritos por estudiante</h3>
+  <select id="selectEstudiante" style="width:100%;padding:8px;border:1px solid #dde3ea;border-radius:6px;margin-bottom:12px"></select>
+  <div id="favoritosEstudiante"></div>
+</div>

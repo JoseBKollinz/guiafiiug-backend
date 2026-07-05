@@ -10,14 +10,24 @@ if (!role) window.location.href = "login.html";
 const MENU = {
   admin: [
     { id: "panel", icon: "🏠", label: "Panel de control" },
+    { id: "gestion_bloques", icon: "🏢", label: "Gestión de bloques" },
     { id: "estadisticas", icon: "📊", label: "Estadísticas generales" },
     { id: "populares", icon: "🔥", label: "Espacios más buscados" },
     { id: "gestion", icon: "🏢", label: "Gestión de espacios" },
     { id: "auditoria", icon: "🛡️", label: "Auditoría" },
     { id: "config", icon: "⚙️", label: "Configuración" }
   ],
+  admin_junior: [
+    { id: "panel", icon: "🏠", label: "Panel de control" },
+    { id: "gestion_bloques", icon: "🏢", label: "Gestión de bloques" },
+    { id: "gestion", icon: "🏢", label: "Gestión de espacios" },
+    { id: "populares", icon: "🔥", label: "Espacios más buscados" },
+    { id: "auditoria", icon: "🛡️", label: "Auditoría" }
+    // se irán agregando conforme construyamos cada módulo nuevo
+  ],
   editor: [
     { id: "panel", icon: "🏠", label: "Panel de control" },
+    { id: "gestion_bloques", icon: "🏢", label: "Gestión de bloques" },
     { id: "gestion", icon: "🏢", label: "Gestión de espacios" }
   ],
   auditor: [

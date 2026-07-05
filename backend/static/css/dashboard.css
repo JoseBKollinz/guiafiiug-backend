@@ -80,3 +80,8 @@
   .sidebar.open { margin-left: 0; }
   .charts-row { grid-template-columns: 1fr; }
 }
+.tab-btn {
+  padding: 10px 18px; border: none; border-radius: 8px; cursor: pointer;
+  font-size: 13px; background: #f1f3f6; color: #16233a;
+}
+.tab-btn.active { background: #123a5e; color: #fff; }
