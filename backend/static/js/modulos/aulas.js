@@ -56,15 +56,18 @@ async function renderAulas() {
     }
 
     cont.innerHTML = todasLasAulas.map(a => `
-      <div class="panel-row" style="padding:10px 0;align-items:flex-start">
-        <div>
-          <strong style="font-size:13px">${a.nombre}</strong>
-          <div style="font-size:11.5px;color:#6b7280">${a.tipo || ""} · ${nombreBloque(a.bloqueId)}</div>
+      <div class="item-card">
+        <div class="item-card-main">
+          <div class="item-card-icon"><i class="ti ti-door"></i></div>
+          <div class="item-card-text">
+            <strong>${a.nombre}</strong>
+            <span>${a.tipo || ""} · ${nombreBloque(a.bloqueId)}</span>
+          </div>
         </div>
-        <span style="display:flex;gap:8px">
-          <button data-editar='${JSON.stringify(a)}' style="border:none;background:none;cursor:pointer">✏️</button>
-          <button data-eliminar="${a.bloqueId}|${a.id}" style="border:none;background:none;cursor:pointer">🗑️</button>
-        </span>
+        <div class="item-card-actions">
+          <button data-editar='${JSON.stringify(a)}'><i class="ti ti-edit"></i></button>
+          <button data-eliminar="${a.bloqueId}|${a.id}"><i class="ti ti-trash"></i></button>
+        </div>
       </div>
     `).join("");
 
@@ -80,7 +83,6 @@ async function renderAulas() {
     console.error(err);
   }
 }
-
 function nombreBloque(bloqueId) {
   const b = bloques.find(x => x.id === bloqueId);
   return b ? b.nombre : bloqueId;

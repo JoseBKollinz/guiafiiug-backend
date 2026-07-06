@@ -25,12 +25,18 @@ async function renderBloques() {
     }
 
     cont.innerHTML = bloques.map(b => `
-      <div class="panel-row" style="padding:10px 0">
-        <span>${b.nombre}</span>
-        <span style="display:flex;gap:8px">
-          <button data-editar="${b.id}" data-nombre="${b.nombre}" style="border:none;background:none;cursor:pointer">✏️</button>
-          <button data-eliminar="${b.id}" style="border:none;background:none;cursor:pointer">🗑️</button>
-        </span>
+      <div class="item-card">
+        <div class="item-card-main">
+          <div class="item-card-icon"><i class="ti ti-building"></i></div>
+          <div class="item-card-text">
+            <strong>${b.nombre}</strong>
+            <span>${b.id}</span>
+          </div>
+        </div>
+        <div class="item-card-actions">
+          <button data-editar="${b.id}" data-nombre="${b.nombre}"><i class="ti ti-edit"></i></button>
+          <button data-eliminar="${b.id}"><i class="ti ti-trash"></i></button>
+        </div>
       </div>
     `).join("");
 

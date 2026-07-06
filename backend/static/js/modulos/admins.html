@@ -1,0 +1,80 @@
+<div class="chart-card">
+  <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;flex-wrap:wrap;gap:10px">
+    <h3><i class="ti ti-key"></i> Gestión de Administradores</h3>
+    <button class="btn-login" style="width:auto;padding:8px 16px;font-size:13px" id="btnNuevoAdmin"><i
+        class="ti ti-plus"></i> Nueva cuenta</button>
+  </div>
+
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:10px;margin-bottom:14px">
+    <input type="text" id="filtroNombreAdmin" placeholder="Filtrar por nombre"
+      style="padding:9px 10px;border:1px solid #dde3ea;border-radius:6px;font-size:13px">
+    <input type="text" id="filtroEmailAdmin" placeholder="Filtrar por correo"
+      style="padding:9px 10px;border:1px solid #dde3ea;border-radius:6px;font-size:13px">
+    <select id="filtroRolAdmin" style="padding:9px 10px;border:1px solid #dde3ea;border-radius:6px;font-size:13px">
+      <option value="">Todos los roles</option>
+      <option value="admin">admin</option>
+      <option value="admin_junior">admin_junior</option>
+      <option value="editor">editor</option>
+      <option value="auditor">auditor</option>
+    </select>
+    <button id="btnLimpiarFiltrosAdmin"
+      style="padding:9px 10px;border:1px solid #dde3ea;border-radius:6px;background:#f1f3f6;cursor:pointer;font-size:13px">Limpiar
+      filtros</button>
+  </div>
+
+  <div style="overflow-x:auto">
+    <table class="tabla-cds">
+      <thead>
+        <tr style="border-bottom:2px solid #e5e9f0;text-align:left">
+          <th style="padding:10px 8px">Nombre</th>
+          <th style="padding:10px 8px">Correo</th>
+          <th style="padding:10px 8px">Rol</th>
+          <th style="padding:10px 8px;text-align:center">Acciones</th>
+        </tr>
+      </thead>
+      <tbody id="tablaAdmins"></tbody>
+    </table>
+  </div>
+  <p id="adminsMsg" style="color:#d33;font-size:12.5px;margin-top:8px"></p>
+</div>
+
+<div id="modalAdmin"
+  style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.4);align-items:center;justify-content:center;z-index:100">
+  <div style="background:#fff;border-radius:12px;padding:24px;width:360px">
+    <h3 id="modalAdminTitulo" style="margin-bottom:14px">Nueva cuenta</h3>
+    <input type="hidden" id="adminUidEdit">
+
+    <label style="font-size:12.5px;color:#6b7280">Nombre</label>
+    <input type="text" id="adminNombreInput" placeholder="Juan Pérez"
+      style="width:100%;padding:10px;border:1px solid #dde3ea;border-radius:6px;margin:6px 0 14px">
+
+    <div id="campoEmailAdmin">
+      <label style="font-size:12.5px;color:#6b7280">Correo institucional</label>
+      <input type="email" id="adminEmailInput" placeholder="usuario@fiindustrial.edu.ec"
+        style="width:100%;padding:10px;border:1px solid #dde3ea;border-radius:6px;margin:6px 0 14px">
+    </div>
+
+    <div id="campoPasswordAdmin">
+      <label style="font-size:12.5px;color:#6b7280">Contraseña temporal</label>
+      <input type="text" id="adminPasswordInput" placeholder="mín. 8 caracteres"
+        style="width:100%;padding:10px;border:1px solid #dde3ea;border-radius:6px;margin:6px 0 14px">
+    </div>
+
+    <label style="font-size:12.5px;color:#6b7280">Rol</label>
+    <select id="adminRolInput"
+      style="width:100%;padding:10px;border:1px solid #dde3ea;border-radius:6px;margin:6px 0 16px">
+      <option value="admin_junior">admin_junior</option>
+      <option value="editor">editor</option>
+      <option value="auditor">auditor</option>
+    </select>
+
+    <p id="modalAdminMsg" style="color:#d33;font-size:12.5px;margin-bottom:10px"></p>
+
+    <div style="display:flex;gap:8px">
+      <button id="btnGuardarAdmin"
+        style="flex:1;padding:10px;background:#123a5e;color:#fff;border:none;border-radius:6px;cursor:pointer">Guardar</button>
+      <button id="btnCancelarAdmin"
+        style="flex:1;padding:10px;background:#f1f3f6;border:none;border-radius:6px;cursor:pointer">Cancelar</button>
+    </div>
+  </div>
+</div>

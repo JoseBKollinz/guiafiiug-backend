@@ -1,54 +1,72 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
-<meta charset="UTF-8">
-<title>Iniciar sesión | Sistema de Gestión de Espacios</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="stylesheet" href="css/styles.css">
+  <meta charset="UTF-8">
+  <title>Iniciar sesión | Sistema de Gestión de Espacios</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="css/styles.css">
 </head>
+
 <body>
 
-<div class="login-shell">
-  <div class="login-panel">
+  <div class="login-shell">
 
-    <div class="login-left">
-      <span class="eyebrow">ACCESO INSTITUCIONAL</span>
-      <h1>Login</h1>
+    <img src="img/logo-ug.png" alt="" class="logo-flotante logo-ug-float">
+    <img src="img/logo-facultad.png" alt="" class="logo-flotante logo-facultad-float">
 
-      <form id="loginForm">
-        <div class="field">
-          <label for="email">Usuario o correo</label>
-          <div class="field-row">
-            <input type="email" id="email" placeholder="usuario@fiindustrial.edu.ec" required>
-            <span class="field-icon">👤</span>
+    <div class="login-panel">
+
+      <div class="login-left">
+        <span class="eyebrow">ACCESO INSTITUCIONAL</span>
+        <h1>Login</h1>
+
+        <form id="loginForm">
+          <div class="field">
+            <label for="email">Usuario o correo</label>
+            <div class="field-row">
+              <input type="email" id="email" placeholder="usuario@fiindustrial.edu.ec" required>
+              <span class="field-icon">👤</span>
+            </div>
           </div>
-        </div>
 
-        <div class="field">
-          <label for="password">Contraseña</label>
-          <div class="field-row">
-            <input type="password" id="password" placeholder="••••••••" required>
-            <span class="field-icon" id="togglePass" style="cursor:pointer">🔒</span>
+          <div class="field">
+            <label for="password">Contraseña</label>
+            <div class="field-row">
+              <input type="password" id="password" placeholder="••••••••" required>
+              <span class="field-icon" id="togglePass" style="cursor:pointer">🔒</span>
+            </div>
           </div>
-        </div>
 
-        <p id="errorMsg" class="error-msg"></p>
+          <p id="errorMsg" class="error-msg"></p>
 
-        <button type="submit" class="btn-login" id="btnIngresar">Login</button>
-      </form>
+          <button type="submit" class="btn-login" id="btnIngresar">Login</button>
+        </form>
 
-      <p class="signup-note">¿Eres visitante? <a href="visitante.html">Entrar sin cuenta</a></p>
+        <p class="signup-note">¿Eres visitante? <a href="visitante.html">Entrar sin cuenta</a></p>
+      </div>
+
+      <div class="login-right">
+        <svg class="login-right-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z" stroke="#fff"
+            stroke-width="1.5" />
+          <circle cx="12" cy="9" r="2.5" stroke="#fff" stroke-width="1.5" />
+        </svg>
+
+        <h2>ENCUENTRA<br>TU ESPACIO</h2>
+        <p>Sistema Inteligente de Gestión de Espacios — Facultad de Ingeniería Industrial.</p>
+
+        <ul>
+          <li>Ubica aulas y bloques al instante</li>
+          <li>Consulta tus espacios favoritos</li>
+          <li>Auditoría y seguridad en tiempo real</li>
+        </ul>
+      </div>
     </div>
-
-    <div class="login-right">
-      <h2>BIENVENIDO<br>USUARIO!</h2>
-      <p>Sistema Inteligente de Gestión de Espacios — Facultad de Ingeniería Industrial.</p>
-    </div>
-
   </div>
-</div>
 
-<script type="module" src="js/firebase-config.js"></script>
-<script type="module" src="js/auth.js"></script>
+  <script type="module" src="js/firebase-config.js"></script>
+  <script type="module" src="js/auth.js"></script>
 </body>
+
 </html>

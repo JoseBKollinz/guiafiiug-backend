@@ -1,52 +1,56 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
-<meta charset="UTF-8">
-<title>Mis Espacios | Visitante</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="stylesheet" href="css/dashboard.css">
+  <meta charset="UTF-8">
+  <title>Mis Espacios | Visitante</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="css/dashboard.css">
 </head>
+
 <body>
 
-<div class="layout" style="flex-direction:column">
-  <header class="topbar">
-    <div class="topbar-period">👋 Modo visitante</div>
-    <div class="topbar-right">
-      <button class="logout-btn" onclick="salir()">Salir</button>
-    </div>
-  </header>
-
-  <main class="main" style="max-width:900px;margin:0 auto;width:100%">
-    <div class="hero-card">
-      <div>
-        <h2>Tus espacios</h2>
-        <p>Consulta tus lugares favoritos y búsquedas guardadas desde la app móvil.</p>
+  <div class="layout" style="flex-direction:column">
+    <header class="topbar">
+      <div class="topbar-period">👋 Modo visitante</div>
+      <div class="topbar-right">
+        <button class="logout-btn" onclick="salir()">Salir</button>
       </div>
-    </div>
+    </header>
 
-    <div style="display:flex;gap:10px;margin:16px 0">
-      <button class="tab-btn active" id="tabFavoritos">⭐ Mis favoritos</button>
-      <button class="tab-btn" id="tabBuscados">🔍 Mis búsquedas</button>
-    </div>
-
-    <div id="contenidoVisitante"></div>
-
-    <div class="chart-card" style="margin-top:16px">
-      <div style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:12px">
-        <select id="mapaSelectVisitante" style="padding:6px 10px;border-radius:6px;border:1px solid #dde3ea">
-          <option value="campus_general">Campus general</option>
-          <option value="planta_baja">Planta baja (A B C)</option>
-          <option value="planta_baja_defg">Planta baja (D E F G)</option>
-          <option value="primer_piso_abc">Primer piso (A B C)</option>
-          <option value="primer_piso_dg">Primer piso (D G)</option>
-          <option value="segundo_piso_abc">Segundo piso (A B C)</option>
-        </select>
+    <main class="main" style="max-width:900px;margin:0 auto;width:100%">
+      <div class="hero-card">
+        <div>
+          <h2>Tus espacios</h2>
+          <p>Consulta tus lugares favoritos y búsquedas guardadas desde la app móvil.</p>
+        </div>
       </div>
-      <svg id="mapaSvgVisitante" viewBox="0 0 820 560" style="width:100%;height:auto"></svg>
-    </div>
-  </main>
-</div>
 
-<script src="js/visitante-dashboard.js"></script>
+      <div style="display:flex;gap:10px;margin:16px 0">
+        <button class="tab-btn active" id="tabFavoritos">⭐ Mis favoritos</button>
+        <button class="tab-btn" id="tabBuscados" disabled title="Disponible próximamente"
+          style="opacity:.5;cursor:not-allowed">🔍 Mis búsquedas</button>
+      </div>
+
+      <div id="contenidoVisitante"></div>
+
+      <div class="chart-card" style="margin-top:16px">
+        <div style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:12px">
+          <select id="mapaSelectVisitante" style="padding:6px 10px;border-radius:6px;border:1px solid #dde3ea">
+            <option value="campus_general">Campus general</option>
+            <option value="planta_baja">Planta baja (A B C)</option>
+            <option value="planta_baja_defg">Planta baja (D E F G)</option>
+            <option value="primer_piso_abc">Primer piso (A B C)</option>
+            <option value="primer_piso_dg">Primer piso (D G)</option>
+            <option value="segundo_piso_abc">Segundo piso (A B C)</option>
+          </select>
+        </div>
+        <svg id="mapaSvgVisitante" viewBox="0 0 820 560" style="width:100%;height:auto"></svg>
+      </div>
+    </main>
+  </div>
+
+  <script src="js/visitante-dashboard.js"></script>
 </body>
+
 </html>

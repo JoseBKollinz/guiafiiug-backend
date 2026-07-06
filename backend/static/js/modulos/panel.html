@@ -1,6 +1,23 @@
 <div class="hero-card">
   <div>
-    <h2>Panel de control</h2>
-    <p>Bienvenido al sistema de gestión de espacios.</p>
+    <h2 id="panelSaludo">Hola</h2>
+    <p id="panelSubtitulo">Cargando resumen del sistema...</p>
+  </div>
+  <div class="hero-badge" id="panelPeriodo">—</div>
+</div>
+
+<div class="stats-grid" id="panelStats" style="margin:20px 0"></div>
+
+<div class="charts-row">
+  <div class="chart-card">
+    <h3><i class="ti ti-star"></i> Top 5 espacios favoritos</h3>
+    <canvas id="panelFavoritosChart" height="200"></canvas>
+  </div>
+
+  <div class="side-panel">
+    <h3><i class="ti ti-clock"></i> Actividad reciente</h3>
+    <div id="panelActividad"></div>
   </div>
 </div>
+
+<div id="panelAlertaSeguridad" style="margin-top:16px;display:none"></div>

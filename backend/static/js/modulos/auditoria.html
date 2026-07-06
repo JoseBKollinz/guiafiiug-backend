@@ -1,0 +1,59 @@
+<div class="chart-card">
+  <h3 style="margin-bottom:14px"><i class="ti ti-shield"></i> Registro de Auditoría</h3>
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:10px;margin-bottom:14px">
+    <select id="filtroAccion" style="padding:9px 10px;border:1px solid #dde3ea;border-radius:6px;font-size:13px">
+      <option value="">Todas las acciones</option>
+      <option value="login">login</option>
+      <option value="crear_bloque">crear_bloque</option>
+      <option value="editar_bloque">editar_bloque</option>
+      <option value="eliminar_bloque">eliminar_bloque</option>
+      <option value="crear_aula">crear_aula</option>
+      <option value="editar_aula">editar_aula</option>
+      <option value="eliminar_aula">eliminar_aula</option>
+      <option value="crear_area_comun">crear_area_comun</option>
+      <option value="editar_area_comun">editar_area_comun</option>
+      <option value="eliminar_area_comun">eliminar_area_comun</option>
+      <option value="registro_estudiante">registro_estudiante</option>
+      <option value="editar_usuario">editar_usuario</option>
+      <option value="eliminar_usuario">eliminar_usuario</option>
+      <option value="crear_administrador">crear_administrador</option>
+      <option value="editar_administrador">editar_administrador</option>
+      <option value="eliminar_administrador">eliminar_administrador</option>
+      <option value="cambio_password">cambio_password</option>
+    </select>
+
+    <input type="text" id="filtroUsuarioLog" placeholder="Filtrar por usuario"
+      style="padding:9px 10px;border:1px solid #dde3ea;border-radius:6px;font-size:13px">
+
+    <select id="filtroResultado" style="padding:9px 10px;border:1px solid #dde3ea;border-radius:6px;font-size:13px">
+      <option value="">Todos los resultados</option>
+      <option value="exito">Éxito</option>
+      <option value="fallido">Fallido</option>
+    </select>
+
+    <input type="date" id="filtroFechaLog"
+      style="padding:9px 10px;border:1px solid #dde3ea;border-radius:6px;font-size:13px">
+
+    <button id="btnLimpiarFiltrosLog"
+      style="padding:9px 10px;border:1px solid #dde3ea;border-radius:6px;background:#f1f3f6;cursor:pointer;font-size:13px">Limpiar
+      filtros</button>
+  </div>
+
+  <div style="overflow-x:auto">
+    <table style="width:100%;border-collapse:collapse;font-size:12.5px">
+      <thead>
+        <tr style="border-bottom:2px solid #e5e9f0;text-align:left">
+          <th style="padding:10px 8px">Fecha y hora</th>
+          <th style="padding:10px 8px">Usuario</th>
+          <th style="padding:10px 8px">Rol</th>
+          <th style="padding:10px 8px">Acción</th>
+          <th style="padding:10px 8px">Documento</th>
+          <th style="padding:10px 8px">Resultado</th>
+          <th style="padding:10px 8px">IP</th>
+        </tr>
+      </thead>
+      <tbody id="tablaAuditoria"></tbody>
+    </table>
+  </div>
+  <p id="auditoriaMsg" style="color:#d33;font-size:12.5px;margin-top:8px"></p>
+</div>

@@ -1,3 +1,6 @@
+import os
+import re
+import requests
 from flask import Flask, request, jsonify, send_from_directory
 from flask_cors import CORS
 from firebase_admin import auth as fb_auth
@@ -57,6 +60,10 @@ def verify():
         if not role:
             return jsonify({"error": "Usuario sin rol asignado"}), 403
 
+        # Revisa si debe cambiar contraseña
+        admin_doc = db.collection("usuarios_admin").document(uid).get()
+        debe_cambiar = admin_doc.to_dict().get("debe_cambiar_password", False) if admin_doc.exists else False
+
         db.collection("logs").add({
             "usuario_uid": uid,
             "usuario_nombre": obtener_nombre_usuario(uid),
@@ -67,7 +74,7 @@ def verify():
             "ip": request.remote_addr
         })
 
-        return jsonify({"role": role, "uid": uid})
+        return jsonify({"role": role, "uid": uid, "debe_cambiar_password": debe_cambiar})
     except Exception as e:
         db.collection("logs").add({
             "accion": "login",
@@ -77,8 +84,7 @@ def verify():
             "ip": request.remote_addr
         })
         return jsonify({"error": str(e)}), 401
-
-
+    
 # ---------- Registro de estudiante (cifra la cédula antes de guardar) ----------
 @app.route("/api/registrar-estudiante", methods=["POST"])
 def registrar_estudiante():
@@ -86,12 +92,18 @@ def registrar_estudiante():
     nombre = data.get("nombre")
     apellido = data.get("apellido")
     cedula = data.get("cedula")
+    id_token = data.get("idToken")  # opcional, solo viene si es desde el dashboard
 
     if not (nombre and apellido and cedula):
         return jsonify({"error": "Faltan datos"}), 400
 
     cedula_cifrada = encriptar_cedula(cedula)
     cedula_hash = hash_cedula(cedula)
+
+    # Evita duplicados: si la cédula ya existe, no crear otro documento
+    existente = db.collection("usuarios").where("cedula_hash", "==", cedula_hash).limit(1).stream()
+    if list(existente):
+        return jsonify({"error": "Ya existe un estudiante registrado con esa cédula"}), 400
 
     nuevo_doc = db.collection("usuarios").document()
     nuevo_doc.set({
@@ -102,16 +114,27 @@ def registrar_estudiante():
         "fechaRegistro": firestore.SERVER_TIMESTAMP
     })
 
-    db.collection("logs").add({
+    log_data = {
         "accion": "registro_estudiante",
         "documento": nuevo_doc.id,
         "resultado": "exito",
         "timestamp": firestore.SERVER_TIMESTAMP,
         "ip": request.remote_addr
-    })
+    }
+
+    # Si vino con token (dashboard), añade quién lo hizo
+    if id_token:
+        try:
+            role, uid = get_role_from_token(id_token)
+            log_data["usuario_uid"] = uid
+            log_data["usuario_nombre"] = obtener_nombre_usuario(uid)
+            log_data["rol"] = role
+        except Exception:
+            pass
+
+    db.collection("logs").add(log_data)
 
     return jsonify({"status": "ok", "id": nuevo_doc.id})
-
 
 # ---------- Módulo 2 — Gestión de Bloques (Admin, Admin Junior, Editor) ----------
 @app.route("/api/bloques", methods=["GET"])
@@ -495,6 +518,45 @@ def favoritos_por_estudiante(estudiante_id):
 
     return jsonify(favoritos)
 
+# ---------- Módulo 5 — Mapa de popularidad de búsquedas (Admin/Admin Junior/Auditor) ----------
+@app.route("/api/busquedas-ranking", methods=["POST"])
+def busquedas_ranking():
+    id_token = request.json.get("idToken")
+    try:
+        require_role(id_token, ["admin", "admin_junior", "auditor"])
+    except PermissionError:
+        return jsonify({"error": "Acceso denegado"}), 403
+
+    conteo = {}
+    for doc in db.collection("busquedas").stream():
+        espacio = doc.to_dict().get("espacio_encontrado")
+        if espacio:
+            conteo[espacio] = conteo.get(espacio, 0) + 1
+
+    ranking = [{"espacio": k, "total": v} for k, v in conteo.items()]
+    ranking.sort(key=lambda x: x["total"], reverse=True)
+
+    return jsonify(ranking)
+
+
+@app.route("/api/busquedas-recientes", methods=["POST"])
+def busquedas_recientes():
+    id_token = request.json.get("idToken")
+    try:
+        require_role(id_token, ["admin", "admin_junior", "auditor"])
+    except PermissionError:
+        return jsonify({"error": "Acceso denegado"}), 403
+
+    limite = int(request.json.get("limite", 20))
+    docs = db.collection("busquedas").order_by("timestamp", direction=firestore.Query.DESCENDING).limit(limite).stream()
+
+    resultado = []
+    for doc in docs:
+        d = doc.to_dict()
+        d["id"] = doc.id
+        resultado.append(d)
+
+    return jsonify(resultado)
 
 # ---------- Módulo 6 — Favoritos del visitante web (sesión anónima propia) ----------
 @app.route("/api/favoritos-visitante/<estudiante_id>", methods=["GET"])
@@ -524,13 +586,126 @@ def estadisticas():
         require_role(request.json.get("idToken"), ["admin", "admin_junior"])
     except PermissionError:
         return jsonify({"error": "Acceso denegado"}), 403
+
+    # Total de estudiantes registrados
+    total_usuarios = len(list(db.collection("usuarios").stream()))
+
+    # Total de bloques y aulas
+    bloques_docs = list(db.collection("bloques").stream())
+    total_bloques = len(bloques_docs)
+    total_aulas = 0
+    for b in bloques_docs:
+        total_aulas += len(list(db.collection("bloques").document(b.id).collection("aulas").stream()))
+
+    # Total de áreas comunes
+    total_areas = len(list(db.collection("areas_comunes").stream()))
+
+    # Total de favoritos (todas las subcolecciones)
+    total_favoritos = len(list(db.collection_group("favoritos").stream()))
+
+    # Total de administradores por rol
+    admins_docs = list(db.collection("usuarios_admin").stream())
+    conteo_roles = {}
+    for a in admins_docs:
+        rol = a.to_dict().get("role", "sin_rol")
+        conteo_roles[rol] = conteo_roles.get(rol, 0) + 1
+
+    # Actividad reciente: logins en las últimas 24 horas
+    from datetime import datetime, timedelta, timezone
+    hace_24h = datetime.now(timezone.utc) - timedelta(hours=24)
+    logins_recientes = 0
+    for doc in db.collection("logs").where("accion", "==", "login").where("resultado", "==", "exito").stream():
+        ts = doc.to_dict().get("timestamp")
+        if ts and ts >= hace_24h:
+            logins_recientes += 1
+
+    # Intentos de login fallidos en las últimas 24 horas (señal de seguridad)
+    logins_fallidos = 0
+    for doc in db.collection("logs").where("accion", "==", "login").where("resultado", "==", "fallido").stream():
+        ts = doc.to_dict().get("timestamp")
+        if ts and ts >= hace_24h:
+            logins_fallidos += 1
+
     return jsonify({
-        "total_usuarios": 1240,
-        "pct_estudiantes": 87,
-        "pct_visitantes": 13,
-        "activos_semana": 312
+        "total_usuarios": total_usuarios,
+        "total_bloques": total_bloques,
+        "total_aulas": total_aulas,
+        "total_areas_comunes": total_areas,
+        "total_favoritos": total_favoritos,
+        "administradores_por_rol": conteo_roles,
+        "logins_ultimas_24h": logins_recientes,
+        "logins_fallidos_ultimas_24h": logins_fallidos
     })
 
+# ---------- Módulo 12 — Configuración del Sistema (solo Admin) ----------
+@app.route("/api/configuracion", methods=["GET"])
+def obtener_configuracion():
+    doc = db.collection("configuracion").document("sistema").get()
+    if doc.exists:
+        return jsonify(doc.to_dict())
+
+    # Valores por defecto si nunca se ha configurado
+    return jsonify({
+        "nombre_facultad": "Facultad de Ingeniería Industrial",
+        "periodo_academico": "2026-2027",
+        "logo_url": "",
+        "duracion_sesion_minutos": 60,
+        "limite_resultados_busqueda": 20
+    })
+
+
+@app.route("/api/configuracion", methods=["PUT"])
+def actualizar_configuracion():
+    id_token = request.json.get("idToken")
+    try:
+        role, uid = require_role(id_token, ["admin"])
+    except PermissionError:
+        return jsonify({"error": "Acceso denegado"}), 403
+
+    nombre_facultad = request.json.get("nombre_facultad", "").strip()
+    periodo_academico = request.json.get("periodo_academico", "").strip()
+    logo_url = request.json.get("logo_url", "").strip()
+    duracion_sesion = request.json.get("duracion_sesion_minutos")
+    limite_resultados = request.json.get("limite_resultados_busqueda")
+
+    if not (nombre_facultad and periodo_academico):
+        return jsonify({"error": "Nombre de facultad y periodo académico son obligatorios"}), 400
+
+    try:
+        duracion_sesion = int(duracion_sesion)
+        limite_resultados = int(limite_resultados)
+    except (TypeError, ValueError):
+        return jsonify({"error": "Duración de sesión y límite de resultados deben ser números"}), 400
+
+    if duracion_sesion < 5 or duracion_sesion > 480:
+        return jsonify({"error": "La duración de sesión debe estar entre 5 y 480 minutos"}), 400
+
+    if limite_resultados < 5 or limite_resultados > 100:
+        return jsonify({"error": "El límite de resultados debe estar entre 5 y 100"}), 400
+
+    nueva_config = {
+        "nombre_facultad": nombre_facultad,
+        "periodo_academico": periodo_academico,
+        "logo_url": logo_url,
+        "duracion_sesion_minutos": duracion_sesion,
+        "limite_resultados_busqueda": limite_resultados
+    }
+
+    db.collection("configuracion").document("sistema").set(nueva_config)
+
+    db.collection("logs").add({
+        "accion": "editar_configuracion",
+        "documento": "sistema",
+        "usuario_uid": uid,
+        "usuario_nombre": obtener_nombre_usuario(uid),
+        "rol": role,
+        "cambios": nueva_config,
+        "resultado": "exito",
+        "timestamp": firestore.SERVER_TIMESTAMP,
+        "ip": request.remote_addr
+    })
+
+    return jsonify({"status": "ok"})
 
 # ---------- Espacios más buscados (Admin + Admin Junior + Auditor) ----------
 @app.route("/api/espacios-populares", methods=["POST"])
@@ -553,11 +728,17 @@ def auditoria():
         require_role(request.json.get("idToken"), ["admin", "admin_junior", "auditor"])
     except PermissionError:
         return jsonify({"error": "Acceso denegado"}), 403
-    logs = db.collection("logs").order_by(
-        "timestamp", direction="DESCENDING"
-    ).limit(50).stream()
-    return jsonify([l.to_dict() for l in logs])
 
+    limite = int(request.json.get("limite", 100))
+    query = db.collection("logs").order_by("timestamp", direction="DESCENDING").limit(limite)
+
+    logs = []
+    for doc in query.stream():
+        d = doc.to_dict()
+        d["id"] = doc.id
+        logs.append(d)
+
+    return jsonify(logs)
 
 # ---------- Listado de usuarios con cédula descifrada (Admin + Admin Junior + Auditor) ----------
 @app.route("/api/usuarios", methods=["POST"])
@@ -572,6 +753,7 @@ def listar_usuarios():
     resultado = []
     for doc in docs:
         d = doc.to_dict()
+        d["id"] = doc.id   # ← agrega esta línea si no está
         try:
             d["cedula"] = desencriptar_cedula(d["cedula"])
         except Exception:
@@ -580,6 +762,67 @@ def listar_usuarios():
 
     return jsonify(resultado)
 
+@app.route("/api/usuarios/<estudiante_id>", methods=["PUT"])
+def editar_usuario(estudiante_id):
+    id_token = request.json.get("idToken")
+    try:
+        role, uid = require_role(id_token, ["admin", "admin_junior"])
+    except PermissionError:
+        return jsonify({"error": "Acceso denegado"}), 403
+
+    nombre = request.json.get("nombre", "").strip()
+    apellido = request.json.get("apellido", "").strip()
+
+    if not (nombre and apellido):
+        return jsonify({"error": "Nombre y apellido son obligatorios"}), 400
+
+    est_ref = db.collection("usuarios").document(estudiante_id)
+    if not est_ref.get().exists:
+        return jsonify({"error": "El estudiante no existe"}), 404
+
+    est_ref.update({"nombre": nombre, "apellido": apellido})
+
+    db.collection("logs").add({
+        "accion": "editar_usuario",
+        "documento": estudiante_id,
+        "usuario_uid": uid,
+        "usuario_nombre": obtener_nombre_usuario(uid),
+        "rol": role,
+        "cambios": {"nombre": nombre, "apellido": apellido},
+        "resultado": "exito",
+        "timestamp": firestore.SERVER_TIMESTAMP,
+        "ip": request.remote_addr
+    })
+
+    return jsonify({"status": "ok"})
+
+
+@app.route("/api/usuarios/<estudiante_id>", methods=["DELETE"])
+def eliminar_usuario(estudiante_id):
+    id_token = request.json.get("idToken")
+    try:
+        role, uid = require_role(id_token, ["admin", "admin_junior"])
+    except PermissionError:
+        return jsonify({"error": "Acceso denegado"}), 403
+
+    est_ref = db.collection("usuarios").document(estudiante_id)
+    if not est_ref.get().exists:
+        return jsonify({"error": "El estudiante no existe"}), 404
+
+    est_ref.delete()
+
+    db.collection("logs").add({
+        "accion": "eliminar_usuario",
+        "documento": estudiante_id,
+        "usuario_uid": uid,
+        "usuario_nombre": obtener_nombre_usuario(uid),
+        "rol": role,
+        "resultado": "exito",
+        "timestamp": firestore.SERVER_TIMESTAMP,
+        "ip": request.remote_addr
+    })
+
+    return jsonify({"status": "ok"})
 
 @app.route("/api/buscar-usuario", methods=["POST"])
 def buscar_usuario():
@@ -619,6 +862,240 @@ def popularidad_espacios():
         "favoritos": conteo_favoritos
     })
 
+# ---------- Módulo 8 — Gestión de Administradores (solo Admin) ----------
+ROLES_ASIGNABLES = ["admin_junior", "editor", "auditor"]  # admin NO se puede crear desde aquí
+
+
+@app.route("/api/administradores", methods=["POST"])
+def listar_administradores():
+    id_token = request.json.get("idToken")
+    try:
+        require_role(id_token, ["admin"])
+    except PermissionError:
+        return jsonify({"error": "Acceso denegado"}), 403
+
+    admins = []
+    for doc in db.collection("usuarios_admin").stream():
+        d = doc.to_dict()
+        d["uid"] = doc.id
+        admins.append(d)
+    return jsonify(admins)
+
+
+@app.route("/api/administradores", methods=["POST" ])
+@app.route("/api/administradores/crear", methods=["POST"])
+def crear_administrador():
+    id_token = request.json.get("idToken")
+    try:
+        role, uid_actor = require_role(id_token, ["admin"])
+    except PermissionError:
+        return jsonify({"error": "Acceso denegado"}), 403
+
+    nombre = request.json.get("nombre", "").strip()
+    email = request.json.get("email", "").strip()
+    password = request.json.get("password", "").strip()
+    rol_nuevo = request.json.get("role", "").strip()
+
+    if not (nombre and email and password and rol_nuevo):
+        return jsonify({"error": "Todos los campos son obligatorios"}), 400
+
+    if rol_nuevo not in ROLES_ASIGNABLES:
+        return jsonify({"error": "Rol no permitido. Solo se pueden crear: admin_junior, editor, auditor"}), 400
+
+    if len(password) < 8:
+        return jsonify({"error": "La contraseña debe tener al menos 8 caracteres"}), 400
+
+    try:
+        nuevo_user = fb_auth.create_user(email=email, password=password, display_name=nombre)
+        fb_auth.set_custom_user_claims(nuevo_user.uid, {"role": rol_nuevo})
+
+        db.collection("usuarios_admin").document(nuevo_user.uid).set({
+    "nombre": nombre,
+    "email": email,
+    "role": rol_nuevo,
+    "debe_cambiar_password": True   # ← nuevo
+})
+
+        db.collection("logs").add({
+            "accion": "crear_administrador",
+            "documento": nuevo_user.uid,
+            "usuario_uid": uid_actor,
+            "usuario_nombre": obtener_nombre_usuario(uid_actor),
+            "rol": role,
+            "cambios": {"nombre": nombre, "email": email, "role": rol_nuevo},
+            "resultado": "exito",
+            "timestamp": firestore.SERVER_TIMESTAMP,
+            "ip": request.remote_addr
+        })
+
+        return jsonify({"status": "ok", "uid": nuevo_user.uid})
+    except Exception as e:
+        return jsonify({"error": str(e)}), 400
+
+@app.route("/api/administradores/<admin_uid>", methods=["PUT"])
+def editar_administrador(admin_uid):
+    id_token = request.json.get("idToken")
+    try:
+        role, uid_actor = require_role(id_token, ["admin"])
+    except PermissionError:
+        return jsonify({"error": "Acceso denegado"}), 403
+
+    nombre = request.json.get("nombre", "").strip()
+    rol_nuevo = request.json.get("role", "").strip()
+
+    if not (nombre and rol_nuevo):
+        return jsonify({"error": "Nombre y rol son obligatorios"}), 400
+
+    if rol_nuevo not in ROLES_ASIGNABLES:
+        return jsonify({"error": "Rol no permitido. Solo se puede asignar: admin_junior, editor, auditor"}), 400
+
+    admin_ref = db.collection("usuarios_admin").document(admin_uid)
+    doc = admin_ref.get()
+    if not doc.exists:
+        return jsonify({"error": "El administrador no existe"}), 404
+
+    # No permitir editar cuentas con rol "admin" desde este módulo (protección extra)
+    if doc.to_dict().get("role") == "admin":
+        return jsonify({"error": "No se puede modificar una cuenta admin desde este módulo"}), 403
+
+    fb_auth.update_user(admin_uid, display_name=nombre)
+    fb_auth.set_custom_user_claims(admin_uid, {"role": rol_nuevo})
+    admin_ref.update({"nombre": nombre, "role": rol_nuevo})
+
+    db.collection("logs").add({
+        "accion": "editar_administrador",
+        "documento": admin_uid,
+        "usuario_uid": uid_actor,
+        "usuario_nombre": obtener_nombre_usuario(uid_actor),
+        "rol": role,
+        "cambios": {"nombre": nombre, "role": rol_nuevo},
+        "resultado": "exito",
+        "timestamp": firestore.SERVER_TIMESTAMP,
+        "ip": request.remote_addr
+    })
+
+    return jsonify({"status": "ok"})
+
+
+@app.route("/api/administradores/<admin_uid>", methods=["DELETE"])
+def eliminar_administrador(admin_uid):
+    id_token = request.json.get("idToken")
+    try:
+        role, uid_actor = require_role(id_token, ["admin"])
+    except PermissionError:
+        return jsonify({"error": "Acceso denegado"}), 403
+
+    # Protección: no puede eliminarse a sí mismo
+    if admin_uid == uid_actor:
+        return jsonify({"error": "No puedes eliminar tu propia cuenta"}), 400
+
+    admin_ref = db.collection("usuarios_admin").document(admin_uid)
+    doc = admin_ref.get()
+    if not doc.exists:
+        return jsonify({"error": "El administrador no existe"}), 404
+
+    if doc.to_dict().get("role") == "admin":
+        return jsonify({"error": "No se puede eliminar una cuenta admin desde este módulo"}), 403
+
+    fb_auth.delete_user(admin_uid)
+    admin_ref.delete()
+
+    db.collection("logs").add({
+        "accion": "eliminar_administrador",
+        "documento": admin_uid,
+        "usuario_uid": uid_actor,
+        "usuario_nombre": obtener_nombre_usuario(uid_actor),
+        "rol": role,
+        "resultado": "exito",
+        "timestamp": firestore.SERVER_TIMESTAMP,
+        "ip": request.remote_addr
+    })
+
+    return jsonify({"status": "ok"})
+
+
+
+def validar_password_segura(password):
+    if len(password) < 8:
+        return "La contraseña debe tener al menos 8 caracteres"
+    if not re.search(r"[A-Z]", password):
+        return "La contraseña debe incluir al menos una mayúscula"
+    if not re.search(r"[a-z]", password):
+        return "La contraseña debe incluir al menos una minúscula"
+    if not re.search(r"[0-9]", password):
+        return "La contraseña debe incluir al menos un número"
+    if not re.search(r"[!@#$%^&*(),.?\":{}|<>_\-]", password):
+        return "La contraseña debe incluir al menos un carácter especial"
+    return None
+
+
+@app.route("/api/cambiar-password", methods=["POST"])
+def cambiar_password():
+    id_token = request.json.get("idToken")
+    password_actual = request.json.get("passwordActual", "")
+    password_nueva = request.json.get("passwordNueva", "")
+    password_confirmar = request.json.get("passwordConfirmar", "")
+
+    try:
+        decoded = fb_auth.verify_id_token(id_token)
+        uid = decoded["uid"]
+        email = decoded.get("email")
+    except Exception:
+        return jsonify({"error": "Sesión inválida"}), 401
+
+    if password_nueva != password_confirmar:
+        return jsonify({"error": "Las contraseñas nuevas no coinciden"}), 400
+
+    error_validacion = validar_password_segura(password_nueva)
+    if error_validacion:
+        return jsonify({"error": error_validacion}), 400
+
+    firebase_api_key = os.environ.get("FIREBASE_API_KEY")
+    verify_url = f"https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key={firebase_api_key}"
+    resp = requests.post(verify_url, json={
+        "email": email,
+        "password": password_actual,
+        "returnSecureToken": True
+    })
+
+    if resp.status_code != 200:
+        return jsonify({"error": "La contraseña actual es incorrecta"}), 401
+
+    fb_auth.update_user(uid, password=password_nueva)
+    db.collection("usuarios_admin").document(uid).update({"debe_cambiar_password": False})
+
+    db.collection("logs").add({
+        "accion": "cambio_password",
+        "usuario_uid": uid,
+        "usuario_nombre": obtener_nombre_usuario(uid),
+        "resultado": "exito",
+        "timestamp": firestore.SERVER_TIMESTAMP,
+        "ip": request.remote_addr
+    })
+
+    return jsonify({"status": "ok"})
+
+@app.route("/api/logout-inactividad", methods=["POST"])
+def logout_inactividad():
+    id_token = request.json.get("idToken")
+    try:
+        decoded = fb_auth.verify_id_token(id_token)
+        uid = decoded["uid"]
+        role = decoded.get("role")
+    except Exception:
+        return jsonify({"error": "Sesión inválida"}), 401
+
+    db.collection("logs").add({
+        "accion": "logout_inactividad",
+        "usuario_uid": uid,
+        "usuario_nombre": obtener_nombre_usuario(uid),
+        "rol": role,
+        "resultado": "exito",
+        "timestamp": firestore.SERVER_TIMESTAMP,
+        "ip": request.remote_addr
+    })
+
+    return jsonify({"status": "ok"})
 
 # ---------- Espacios públicos (visitante, sin login) ----------
 @app.route("/api/espacios-publicos", methods=["GET"])

@@ -23,7 +23,6 @@ form.addEventListener("submit", async (e) => {
     const cred = await signInWithEmailAndPassword(auth, email, password);
     const idToken = await cred.user.getIdToken();
 
-    // Enviamos el token al backend Python para que lo verifique y devuelva el rol
     const res = await fetch("/api/verify", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -35,7 +34,12 @@ form.addEventListener("submit", async (e) => {
 
     localStorage.setItem("role", data.role);
     localStorage.setItem("email", email);
-    window.location.href = "dashboard.html";
+
+    if (data.debe_cambiar_password) {
+      window.location.href = "cambiar-password.html";
+    } else {
+      window.location.href = "dashboard.html";
+    }
 
   } catch (err) {
     errorMsg.textContent = "Credenciales incorrectas o usuario no autorizado.";

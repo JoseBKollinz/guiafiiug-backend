@@ -136,9 +136,9 @@ document.getElementById("tabFavoritos").addEventListener("click", () => {
   setTab("tabFavoritos");
   renderFavoritos();
 });
+// Ya no agregamos el listener de tabBuscados, o lo dejamos pero sin acción:
 document.getElementById("tabBuscados").addEventListener("click", () => {
-  setTab("tabBuscados");
-  renderBusquedas();
+  // Deshabilitado: requiere relacionar uid_usuario (anónimo) con usuario_id real
 });
 document.getElementById("mapaSelectVisitante").addEventListener("change", (e) => {
   mapaActualKey = e.target.value;

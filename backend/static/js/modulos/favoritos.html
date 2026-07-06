@@ -1,9 +1,10 @@
 <div class="chart-card">
-  <h3>⭐ Ranking de espacios favoritos</h3>
+  <h3><i class="ti ti-star"></i> Top 5 espacios favoritos</h3>
   <div id="rankingFavoritos"></div>
 </div>
 
-<div class="chart-card" style="margin-top:16px">
+<div class="chart-card" style="margin-top:14px">
+  <h3><i class="ti ti-map-2"></i> Mapa de calor de favoritos</h3>
   <div style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:12px">
     <select id="mapaSelect" style="padding:6px 10px;border-radius:6px;border:1px solid #dde3ea">
       <option value="campus_general">Campus general</option>
@@ -17,8 +18,8 @@
   <svg id="mapaSvg" viewBox="0 0 820 560" style="width:100%;height:auto"></svg>
 </div>
 
-<div class="chart-card" style="margin-top:16px">
-  <h3>👥 Favoritos por estudiante</h3>
+<div class="chart-card" style="margin-top:14px">
+  <h3><i class="ti ti-users"></i> Favoritos por estudiante</h3>
   <select id="selectEstudiante" style="width:100%;padding:8px;border:1px solid #dde3ea;border-radius:6px;margin-bottom:12px"></select>
-  <div id="favoritosEstudiante"></div>
+  <div id="favoritosEstudiante" class="scroll-box"></div>
 </div>

@@ -1,0 +1,22 @@
+<div class="chart-card" style="max-width:520px">
+  <h3 style="margin-bottom:18px"><i class="ti ti-settings"></i> Configuración del Sistema</h3>
+
+  <label style="font-size:12.5px;color:#6b7280">Nombre de la facultad</label>
+  <input type="text" id="cfgNombreFacultad" style="width:100%;padding:10px;border:1px solid #dde3ea;border-radius:6px;margin:6px 0 16px">
+
+  <label style="font-size:12.5px;color:#6b7280">Periodo académico</label>
+  <input type="text" id="cfgPeriodo" placeholder="2026-2027" style="width:100%;padding:10px;border:1px solid #dde3ea;border-radius:6px;margin:6px 0 16px">
+
+  <label style="font-size:12.5px;color:#6b7280">URL del logo (opcional)</label>
+  <input type="text" id="cfgLogoUrl" placeholder="https://..." style="width:100%;padding:10px;border:1px solid #dde3ea;border-radius:6px;margin:6px 0 16px">
+
+  <label style="font-size:12.5px;color:#6b7280">Duración de sesión (minutos)</label>
+  <input type="number" id="cfgDuracionSesion" min="5" max="480" style="width:100%;padding:10px;border:1px solid #dde3ea;border-radius:6px;margin:6px 0 16px">
+
+  <label style="font-size:12.5px;color:#6b7280">Límite de resultados en búsquedas</label>
+  <input type="number" id="cfgLimiteResultados" min="5" max="100" style="width:100%;padding:10px;border:1px solid #dde3ea;border-radius:6px;margin:6px 0 20px">
+
+  <p id="configMsg" style="font-size:12.5px;margin-bottom:12px"></p>
+
+  <button id="btnGuardarConfig" style="width:100%;padding:11px;background:#0a3d42;color:#fff;border:none;border-radius:6px;cursor:pointer;font-weight:600">Guardar configuración</button>
+</div>
