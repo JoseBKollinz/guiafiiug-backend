@@ -14,7 +14,7 @@ export async function init(contexto) {
   });
 
   await cargarBloques();
-  await renderAulas();
+  await Promise.all([renderAulas(), renderResumenKPIs()]);
 }
 
 async function cargarBloques() {
@@ -176,4 +176,78 @@ async function eliminarAula(bloqueId, aulaId) {
     alert("Error de conexión al eliminar.");
     console.error(err);
   }
+}
+
+async function renderResumenKPIs() {
+  const res = await fetch("/api/aulas-resumen");
+  const data = await res.json();
+
+  const tipoTop = Object.entries(data.tipos_conteo).sort((a, b) => b[1] - a[1])[0];
+  const servicioTop = Object.entries(data.servicios_conteo).sort((a, b) => b[1] - a[1])[0];
+
+  const tarjetas = [
+    { icon: "ti-door", value: data.total_aulas, label: "Total de aulas" },
+    { icon: "ti-category", value: tipoTop ? tipoTop[0] : "—", label: "Tipo más común" },
+    { icon: "ti-wifi", value: servicioTop ? servicioTop[0] : "—", label: "Servicio más común" },
+  ];
+
+  document.getElementById("aulasStats").innerHTML = tarjetas.map(t => `
+    <div class="stat-card">
+      <div class="stat-icon"><i class="ti ${t.icon}"></i></div>
+      <div>
+        <div class="stat-value" style="font-size:15px">${t.value}</div>
+        <div class="stat-label">${t.label}</div>
+      </div>
+    </div>
+  `).join("");
+
+  // Gráfico de servicios — altura dinámica según cantidad de servicios distintos
+  const labelsServicios = Object.keys(data.servicios_conteo);
+  const valoresServicios = Object.values(data.servicios_conteo);
+
+  if (!labelsServicios.length) {
+    document.getElementById("serviciosChartWrapper").innerHTML =
+      `<p style="color:#6b7280;font-size:12.5px">No hay datos de servicios registrados en las aulas.</p>`;
+  } else {
+    // Cada barra necesita ~28px de alto para verse bien; mínimo 180px
+    const alturaCalculada = Math.max(labelsServicios.length * 28, 180);
+    document.getElementById("serviciosChartWrapper").style.height = `${alturaCalculada}px`;
+
+    new Chart(document.getElementById("serviciosChart"), {
+      type: "bar",
+      data: {
+        labels: labelsServicios,
+        datasets: [{
+          data: valoresServicios,
+          backgroundColor: "#2fd4d4",
+          borderRadius: 6
+        }]
+      },
+      options: {
+        maintainAspectRatio: false,
+        indexAxis: "y",
+        plugins: { legend: { display: false } },
+        scales: { x: { beginAtZero: true, ticks: { stepSize: 1 } } }
+      }
+    });
+  }
+
+  // Gráfico de aulas por tipo
+  const labelsTipos = Object.keys(data.tipos_conteo);
+  const valoresTipos = Object.values(data.tipos_conteo);
+
+  new Chart(document.getElementById("tiposChart"), {
+    type: "doughnut",
+    data: {
+      labels: labelsTipos.length ? labelsTipos : ["Sin datos"],
+      datasets: [{
+        data: valoresTipos.length ? valoresTipos : [1],
+        backgroundColor: ["#0a3d42", "#17b8c4", "#2fd4d4", "#7dd8e0", "#b3ecf0", "#0d4a50"]
+      }]
+    },
+    options: {
+      maintainAspectRatio: false,
+      plugins: { legend: { position: "bottom", labels: { boxWidth: 10, font: { size: 10.5 } } } }
+    }
+  });
 }

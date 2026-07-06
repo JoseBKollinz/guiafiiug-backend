@@ -1,12 +1,9 @@
-<div class="chart-card">
-  <h3><i class="ti ti-flame"></i> Ranking de espacios más buscados</h3>
-  <div id="rankingBusquedas"></div>
-</div>
+<div class="stats-grid" id="busquedasStats" style="margin-bottom:12px"></div>
 
-<div class="chart-card" style="margin-top:16px">
-  <h3><i class="ti ti-map-2"></i> Mapa de calor de búsquedas</h3>
-  <div style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:12px">
-    <select id="mapaSelectBusquedas" style="padding:6px 10px;border-radius:6px;border:1px solid #dde3ea">
+<div class="mapa-con-sidebar">
+  <div class="chart-card">
+    <h3><i class="ti ti-map-2"></i> Mapa de calor de búsquedas</h3>
+    <select id="mapaSelectBusquedas" style="padding:6px 10px;border-radius:6px;border:1px solid #dde3ea;margin-bottom:10px">
       <option value="campus_general">Campus general</option>
       <option value="planta_baja">Planta baja (A B C)</option>
       <option value="planta_baja_defg">Planta baja (D E F G)</option>
@@ -14,11 +11,21 @@
       <option value="primer_piso_dg">Primer piso (D G)</option>
       <option value="segundo_piso_abc">Segundo piso (A B C)</option>
     </select>
+    <svg id="mapaSvgBusquedas" viewBox="0 0 820 560" style="width:100%;height:auto"></svg>
   </div>
-  <svg id="mapaSvgBusquedas" viewBox="0 0 820 560" style="width:100%;height:auto"></svg>
-</div>
 
-<div class="chart-card" style="margin-top:16px">
-  <h3><i class="ti ti-clock"></i> Búsquedas recientes</h3>
-  <div id="listaBusquedasRecientes"></div>
+  <div class="mapa-sidebar-stack">
+    <div class="side-panel">
+      <h3><i class="ti ti-flame"></i> Top 5 más buscados</h3>
+      <div id="rankingBusquedas" class="scroll-box"></div>
+    </div>
+    <div class="side-panel">
+      <h3><i class="ti ti-table"></i> Ranking completo</h3>
+      <div id="tablaRankingCompleto" class="scroll-box"></div>
+    </div>
+    <div class="side-panel">
+      <h3><i class="ti ti-clock"></i> Búsquedas recientes</h3>
+      <div id="listaBusquedasRecientes" class="scroll-box"></div>
+    </div>
+  </div>
 </div>

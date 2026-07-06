@@ -115,19 +115,34 @@ async function renderRanking() {
   rankingActual = {};
   ranking.forEach(r => rankingActual[r.espacio] = r.total);
 
-  const top5 = ranking.slice(0, 5);
+  const totalFavoritos = ranking.reduce((sum, r) => sum + r.total, 0);
+  const espacioTop = ranking[0];
 
-  const cont = document.getElementById("rankingFavoritos");
-  if (!top5.length) {
-    cont.innerHTML = `<p style="color:#6b7280;font-size:13px">Aún no hay favoritos registrados.</p>`;
-    return;
-  }
-  cont.innerHTML = top5.map((r, i) => `
-    <div class="panel-row">
-      <span>#${i + 1} ${r.espacio.replace(/_/g, " ")}</span>
-      <span style="color:#0a3d42;font-weight:600">${r.total} <i class="ti ti-heart"></i></span>
+  document.getElementById("favoritosStats").innerHTML = `
+    <div class="stat-card">
+      <div class="stat-icon"><i class="ti ti-star"></i></div>
+      <div><div class="stat-value">${totalFavoritos}</div><div class="stat-label">Total de favoritos</div></div>
     </div>
-  `).join("");
+    <div class="stat-card">
+      <div class="stat-icon"><i class="ti ti-map-pin"></i></div>
+      <div><div class="stat-value">${ranking.length}</div><div class="stat-label">Espacios distintos</div></div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-icon"><i class="ti ti-trophy"></i></div>
+      <div><div class="stat-value" style="font-size:14px">${espacioTop ? espacioTop.espacio.replace(/_/g," ") : "—"}</div><div class="stat-label">Más favoriteado</div></div>
+    </div>
+  `;
+
+  const top5 = ranking.slice(0, 5);
+  const cont = document.getElementById("rankingFavoritos");
+  cont.innerHTML = top5.length
+    ? top5.map((r, i) => `<div class="panel-row"><span>#${i+1} ${r.espacio.replace(/_/g, " ")}</span><span style="color:#0a3d42;font-weight:600">${r.total} <i class="ti ti-heart"></i></span></div>`).join("")
+    : `<p style="color:#6b7280;font-size:13px">Aún no hay favoritos registrados.</p>`;
+
+  const tablaCont = document.getElementById("tablaRankingCompletoFav");
+  tablaCont.innerHTML = ranking.map((r, i) => `
+    <div class="panel-row"><span>#${i+1} ${r.espacio.replace(/_/g, " ")}</span><span>${r.total}</span></div>
+  `).join("") || `<p style="color:#6b7280;font-size:13px">Sin datos.</p>`;
 }
 
 async function cargarEstudiantes() {

@@ -1,12 +1,9 @@
-<div class="chart-card">
-  <h3><i class="ti ti-star"></i> Top 5 espacios favoritos</h3>
-  <div id="rankingFavoritos"></div>
-</div>
+<div class="stats-grid" id="favoritosStats" style="margin-bottom:12px"></div>
 
-<div class="chart-card" style="margin-top:14px">
-  <h3><i class="ti ti-map-2"></i> Mapa de calor de favoritos</h3>
-  <div style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:12px">
-    <select id="mapaSelect" style="padding:6px 10px;border-radius:6px;border:1px solid #dde3ea">
+<div class="mapa-con-sidebar">
+  <div class="chart-card">
+    <h3><i class="ti ti-map-2"></i> Mapa de calor de favoritos</h3>
+    <select id="mapaSelect" style="padding:6px 10px;border-radius:6px;border:1px solid #dde3ea;margin-bottom:10px">
       <option value="campus_general">Campus general</option>
       <option value="planta_baja">Planta baja (A B C)</option>
       <option value="planta_baja_defg">Planta baja (D E F G)</option>
@@ -14,12 +11,22 @@
       <option value="primer_piso_dg">Primer piso (D G)</option>
       <option value="segundo_piso_abc">Segundo piso (A B C)</option>
     </select>
+    <svg id="mapaSvg" viewBox="0 0 820 560" style="width:100%;height:auto"></svg>
   </div>
-  <svg id="mapaSvg" viewBox="0 0 820 560" style="width:100%;height:auto"></svg>
-</div>
 
-<div class="chart-card" style="margin-top:14px">
-  <h3><i class="ti ti-users"></i> Favoritos por estudiante</h3>
-  <select id="selectEstudiante" style="width:100%;padding:8px;border:1px solid #dde3ea;border-radius:6px;margin-bottom:12px"></select>
-  <div id="favoritosEstudiante" class="scroll-box"></div>
+  <div class="mapa-sidebar-stack">
+    <div class="side-panel">
+      <h3><i class="ti ti-star"></i> Top 5 favoritos</h3>
+      <div id="rankingFavoritos" class="scroll-box"></div>
+    </div>
+    <div class="side-panel">
+      <h3><i class="ti ti-table"></i> Ranking completo</h3>
+      <div id="tablaRankingCompletoFav" class="scroll-box"></div>
+    </div>
+    <div class="side-panel">
+      <h3><i class="ti ti-users"></i> Por estudiante</h3>
+      <select id="selectEstudiante" style="width:100%;padding:6px;border:1px solid #dde3ea;border-radius:6px;margin-bottom:8px;font-size:12px"></select>
+      <div id="favoritosEstudiante" class="scroll-box"></div>
+    </div>
+  </div>
 </div>

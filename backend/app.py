@@ -587,8 +587,84 @@ def estadisticas():
     except PermissionError:
         return jsonify({"error": "Acceso denegado"}), 403
 
+    # Conteos con count() -> 1 sola lectura cada uno, sin importar cuántos documentos haya
+    total_usuarios = db.collection("usuarios").count().get()[0][0].value
+    total_areas = db.collection("areas_comunes").count().get()[0][0].value
+    total_favoritos = db.collection_group("favoritos").count().get()[0][0].value
+
+    # Bloques: necesitamos sus nombres para otros gráficos, así que sí traemos los documentos
+    # (son pocos, 7 en tu caso, no es costoso)
+    bloques_docs = list(db.collection("bloques").stream())
+    total_bloques = len(bloques_docs)
+
+    # Aulas por bloque: aquí sí necesitamos el conteo POR bloque, usamos count() por cada uno
+    total_aulas = 0
+    for b in bloques_docs:
+        conteo_aulas = db.collection("bloques").document(b.id).collection("aulas").count().get()[0][0].value
+        total_aulas += conteo_aulas
+
+    # Administradores por rol (son pocos, count() no aplica bien aquí porque necesitamos agrupar por campo)
+    admins_docs = list(db.collection("usuarios_admin").stream())
+    conteo_roles = {}
+    for a in admins_docs:
+        rol = a.to_dict().get("role", "sin_rol")
+        conteo_roles[rol] = conteo_roles.get(rol, 0) + 1
+
+    # Logins 24h (necesitamos leer documentos para filtrar por timestamp, pero limitamos)
+    from datetime import datetime, timedelta, timezone
+    hace_24h = datetime.now(timezone.utc) - timedelta(hours=24)
+
+    logins_recientes = 0
+    logins_fallidos = 0
+    logs_login_docs = db.collection("logs").where("accion", "==", "login").limit(500).stream()
+    for doc in logs_login_docs:
+        d = doc.to_dict()
+        ts = d.get("timestamp")
+        if not ts or ts < hace_24h:
+            continue
+        if d.get("resultado") == "exito":
+            logins_recientes += 1
+        else:
+            logins_fallidos += 1
+
+    # Logins por día (últimos 7 días) - reutiliza los mismos docs ya traídos arriba si quieres optimizar más,
+    # pero por simplicidad hacemos una segunda pasada con límite
+    hoy = datetime.now(timezone.utc).date()
+    dias = [(hoy - timedelta(days=i)) for i in range(6, -1, -1)]
+    logins_por_dia = {d.isoformat(): {"exitosos": 0, "fallidos": 0} for d in dias}
+
+    hace_7_dias = datetime.now(timezone.utc) - timedelta(days=7)
+    logs_semana = db.collection("logs").where("accion", "==", "login").limit(500).stream()
+    for doc in logs_semana:
+        d = doc.to_dict()
+        ts = d.get("timestamp")
+        if not ts or ts < hace_7_dias:
+            continue
+        fecha_str = ts.date().isoformat()
+        if fecha_str in logins_por_dia:
+            if d.get("resultado") == "exito":
+                logins_por_dia[fecha_str]["exitosos"] += 1
+            else:
+                logins_por_dia[fecha_str]["fallidos"] += 1
+
+    return jsonify({
+        "total_usuarios": total_usuarios,
+        "total_bloques": total_bloques,
+        "total_aulas": total_aulas,
+        "total_areas_comunes": total_areas,
+        "total_favoritos": total_favoritos,
+        "administradores_por_rol": conteo_roles,
+        "logins_ultimas_24h": logins_recientes,
+        "logins_fallidos_ultimas_24h": logins_fallidos,
+        "logins_por_dia": logins_por_dia
+    })
+    try:
+        require_role(request.json.get("idToken"), ["admin", "admin_junior"])
+    except PermissionError:
+        return jsonify({"error": "Acceso denegado"}), 403
+
     # Total de estudiantes registrados
-    total_usuarios = len(list(db.collection("usuarios").stream()))
+    total_usuarios = db.collection("usuarios").count().get()[0][0].value
 
     # Total de bloques y aulas
     bloques_docs = list(db.collection("bloques").stream())
@@ -626,6 +702,29 @@ def estadisticas():
         if ts and ts >= hace_24h:
             logins_fallidos += 1
 
+# Conteo de acciones por tipo (últimos 100 logs, para no sobrecargar)
+    # Logins exitosos y fallidos agrupados por día (últimos 7 días)
+    from datetime import datetime, timedelta, timezone
+    hoy = datetime.now(timezone.utc).date()
+    dias = [(hoy - timedelta(days=i)) for i in range(6, -1, -1)]  # últimos 7 días, en orden
+
+    logins_por_dia = {d.isoformat(): {"exitosos": 0, "fallidos": 0} for d in dias}
+
+    hace_7_dias = datetime.now(timezone.utc) - timedelta(days=7)
+    logs_login = db.collection("logs").where("accion", "==", "login").stream()
+
+    for doc in logs_login:
+        d = doc.to_dict()
+        ts = d.get("timestamp")
+        if not ts or ts < hace_7_dias:
+            continue
+        fecha_str = ts.date().isoformat()
+        if fecha_str in logins_por_dia:
+            if d.get("resultado") == "exito":
+                logins_por_dia[fecha_str]["exitosos"] += 1
+            else:
+                logins_por_dia[fecha_str]["fallidos"] += 1
+
     return jsonify({
         "total_usuarios": total_usuarios,
         "total_bloques": total_bloques,
@@ -634,7 +733,8 @@ def estadisticas():
         "total_favoritos": total_favoritos,
         "administradores_por_rol": conteo_roles,
         "logins_ultimas_24h": logins_recientes,
-        "logins_fallidos_ultimas_24h": logins_fallidos
+        "logins_fallidos_ultimas_24h": logins_fallidos,
+        "logins_por_dia": logins_por_dia
     })
 
 # ---------- Módulo 12 — Configuración del Sistema (solo Admin) ----------
@@ -1096,7 +1196,76 @@ def logout_inactividad():
     })
 
     return jsonify({"status": "ok"})
+@app.route("/api/registrar-login-fallido", methods=["POST"])
+def registrar_login_fallido():
+    email = request.json.get("email", "desconocido")
 
+    db.collection("logs").add({
+        "accion": "login",
+        "resultado": "fallido",
+        "email_intentado": email,
+        "timestamp": firestore.SERVER_TIMESTAMP,
+        "ip": request.remote_addr
+    })
+
+@app.route("/api/aulas-resumen", methods=["GET"])
+def aulas_resumen():
+    bloques_docs = list(db.collection("bloques").stream())
+
+    aulas_por_bloque = {}
+    servicios_conteo = {}
+    tipos_conteo = {}
+    total_aulas = 0
+
+    for b in bloques_docs:
+        aulas = list(db.collection("bloques").document(b.id).collection("aulas").stream())
+        aulas_por_bloque[b.to_dict().get("nombre", b.id)] = len(aulas)
+        total_aulas += len(aulas)
+
+        for a in aulas:
+            data = a.to_dict()
+            for s in data.get("servicios", []):
+                servicios_conteo[s] = servicios_conteo.get(s, 0) + 1
+            tipo = data.get("tipo", "Sin tipo")
+            tipos_conteo[tipo] = tipos_conteo.get(tipo, 0) + 1
+
+    return jsonify({
+        "total_aulas": total_aulas,
+        "total_bloques": len(bloques_docs),
+        "aulas_por_bloque": aulas_por_bloque,
+        "servicios_conteo": servicios_conteo,
+        "tipos_conteo": tipos_conteo
+    })
+    bloques_docs = list(db.collection("bloques").stream())
+
+    aulas_por_bloque = {}
+    servicios_conteo = {}
+    total_aulas = 0
+
+    for b in bloques_docs:
+        aulas = list(db.collection("bloques").document(b.id).collection("aulas").stream())
+        aulas_por_bloque[b.to_dict().get("nombre", b.id)] = len(aulas)
+        total_aulas += len(aulas)
+
+        for a in aulas:
+            servicios = a.to_dict().get("servicios", [])
+            for s in servicios:
+                servicios_conteo[s] = servicios_conteo.get(s, 0) + 1
+
+    tipos_conteo = {}
+    for b in bloques_docs:
+        for a in db.collection("bloques").document(b.id).collection("aulas").stream():
+            tipo = a.to_dict().get("tipo", "Sin tipo")
+            tipos_conteo[tipo] = tipos_conteo.get(tipo, 0) + 1
+
+    return jsonify({
+        "total_aulas": total_aulas,
+        "total_bloques": len(bloques_docs),
+        "aulas_por_bloque": aulas_por_bloque,
+        "servicios_conteo": servicios_conteo,
+        "tipos_conteo": tipos_conteo
+    })
+    return jsonify({"status": "ok"})
 # ---------- Espacios públicos (visitante, sin login) ----------
 @app.route("/api/espacios-publicos", methods=["GET"])
 def espacios_publicos():

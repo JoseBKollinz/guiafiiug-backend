@@ -2,14 +2,12 @@ let ctx = null;
 
 export async function init(contexto) {
   ctx = contexto;
-
   document.getElementById("btnNuevoBloque").addEventListener("click", () => abrirFormBloque());
   document.getElementById("btnGuardarBloque").addEventListener("click", guardarBloque);
   document.getElementById("btnCancelarBloque").addEventListener("click", cerrarModal);
 
-  await renderBloques();
+  await Promise.all([renderBloques(), renderResumenKPIs()]);
 }
-
 async function renderBloques() {
   const cont = document.getElementById("listaBloques");
   const msg = document.getElementById("bloquesMsg");
@@ -119,4 +117,63 @@ async function eliminarBloque(id) {
     alert("Error de conexión al eliminar.");
     console.error(err);
   }
+}
+async function renderResumenKPIs() {
+  const res = await fetch("/api/aulas-resumen");
+  const data = await res.json();
+
+  const promedio = data.total_bloques > 0 ? (data.total_aulas / data.total_bloques).toFixed(1) : "0";
+  const bloqueTop = Object.entries(data.aulas_por_bloque).sort((a, b) => b[1] - a[1])[0];
+
+  const tarjetas = [
+    { icon: "ti-building", value: data.total_bloques, label: "Total de bloques" },
+    { icon: "ti-door", value: data.total_aulas, label: "Total de aulas" },
+    { icon: "ti-chart-bar", value: promedio, label: "Promedio aulas / bloque" },
+    { icon: "ti-trophy", value: bloqueTop ? bloqueTop[0] : "—", label: "Bloque con más aulas" },
+  ];
+
+  document.getElementById("bloquesStats").innerHTML = tarjetas.map(t => `
+    <div class="stat-card">
+      <div class="stat-icon"><i class="ti ${t.icon}"></i></div>
+      <div>
+        <div class="stat-value" style="font-size:16px">${t.value}</div>
+        <div class="stat-label">${t.label}</div>
+      </div>
+    </div>
+  `).join("");
+
+  new Chart(document.getElementById("aulasPorBloqueChart"), {
+    type: "bar",
+    data: {
+      labels: Object.keys(data.aulas_por_bloque),
+      datasets: [{
+        data: Object.values(data.aulas_por_bloque),
+        backgroundColor: "#17b8c4",
+        borderRadius: 6
+      }]
+    },
+    options: {
+      maintainAspectRatio: false,
+      plugins: { legend: { display: false } },
+      scales: { y: { beginAtZero: true, ticks: { stepSize: 1 } } }
+    }
+  });
+
+  const labelsTipos = Object.keys(data.tipos_conteo || {});
+  const valoresTipos = Object.values(data.tipos_conteo || {});
+
+  new Chart(document.getElementById("tiposGlobalChart"), {
+    type: "pie",
+    data: {
+      labels: labelsTipos.length ? labelsTipos : ["Sin datos"],
+      datasets: [{
+        data: valoresTipos.length ? valoresTipos : [1],
+        backgroundColor: ["#0a3d42", "#17b8c4", "#2fd4d4", "#7dd8e0", "#b3ecf0"]
+      }]
+    },
+    options: {
+      maintainAspectRatio: false,
+      plugins: { legend: { position: "bottom", labels: { boxWidth: 10, font: { size: 10.5 } } } }
+    }
+  });
 }

@@ -43,6 +43,17 @@ form.addEventListener("submit", async (e) => {
 
   } catch (err) {
     errorMsg.textContent = "Credenciales incorrectas o usuario no autorizado.";
+
+    try {
+      await fetch("/api/registrar-login-fallido", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email })
+      });
+    } catch (logErr) {
+      console.error("No se pudo registrar el intento fallido:", logErr);
+    }
+
     btn.disabled = false;
     btn.textContent = "Ingresar";
   }

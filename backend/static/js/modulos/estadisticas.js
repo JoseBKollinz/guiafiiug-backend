@@ -16,6 +16,8 @@ async function cargarEstadisticas() {
 
   renderTarjetas(data);
   renderGraficoRoles(data.administradores_por_rol);
+  renderDistribucion(data);
+  renderLoginsPorDia(data.logins_por_dia);
   renderActividadSeguridad(data);
 }
 
@@ -36,7 +38,7 @@ function renderTarjetas(data) {
     { icon: "ti-map-pin", value: data.total_areas_comunes, label: "Áreas comunes" },
     { icon: "ti-star", value: data.total_favoritos, label: "Favoritos totales" },
     { icon: "ti-heart", value: promedioFavoritos, label: "Favoritos / estudiante" },
-    { icon: "ti-shield-check", value: `${tasaExito}%`, label: "Tasa éxito de login (24h)" },
+    { icon: "ti-shield-check", value: `${tasaExito}%`, label: "Éxito login (24h)" },
   ];
 
   document.getElementById("statsGridModulo").innerHTML = tarjetas.map(t => `
@@ -64,7 +66,66 @@ function renderGraficoRoles(rolesConteo) {
       }]
     },
     options: {
-      plugins: { legend: { position: "bottom", labels: { boxWidth: 12, font: { size: 11 } } } }
+      maintainAspectRatio: false,
+      plugins: { legend: { position: "bottom", labels: { boxWidth: 10, font: { size: 10.5 } } } }
+    }
+  });
+}
+
+function renderDistribucion(data) {
+  new Chart(document.getElementById("distribucionChart"), {
+    type: "pie",
+    data: {
+      labels: ["Bloques", "Aulas", "Áreas comunes"],
+      datasets: [{
+        data: [data.total_bloques, data.total_aulas, data.total_areas_comunes],
+        backgroundColor: ["#0a3d42", "#17b8c4", "#7dd8e0"]
+      }]
+    },
+    options: {
+      maintainAspectRatio: false,
+      plugins: { legend: { position: "bottom", labels: { boxWidth: 10, font: { size: 10.5 } } } }
+    }
+  });
+}
+
+function renderLoginsPorDia(loginsPorDia) {
+  const fechas = Object.keys(loginsPorDia || {}).sort();
+  const exitosos = fechas.map(f => loginsPorDia[f].exitosos);
+  const fallidos = fechas.map(f => loginsPorDia[f].fallidos);
+
+  const labelsFormato = fechas.map(f => {
+    const d = new Date(f + "T00:00:00");
+    return d.toLocaleDateString("es-EC", { day: "2-digit", month: "short" });
+  });
+
+  new Chart(document.getElementById("loginsPorDiaChart"), {
+    type: "line",
+    data: {
+      labels: labelsFormato.length ? labelsFormato : ["Sin datos"],
+      datasets: [
+        {
+          label: "Exitosos",
+          data: exitosos,
+          borderColor: "#17b8c4",
+          backgroundColor: "rgba(23, 184, 196, 0.15)",
+          tension: 0.3,
+          fill: true
+        },
+        {
+          label: "Fallidos",
+          data: fallidos,
+          borderColor: "#dc2626",
+          backgroundColor: "rgba(220, 38, 38, 0.1)",
+          tension: 0.3,
+          fill: true
+        }
+      ]
+    },
+    options: {
+      maintainAspectRatio: false,
+      plugins: { legend: { position: "bottom", labels: { boxWidth: 10, font: { size: 10.5 } } } },
+      scales: { y: { beginAtZero: true, ticks: { stepSize: 1 } } }
     }
   });
 }

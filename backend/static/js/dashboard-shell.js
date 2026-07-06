@@ -6,17 +6,17 @@ const email = localStorage.getItem("email");
 if (!role) window.location.href = "login.html";
 
 const MODULOS = {
-  panel:        { icon: "ti-home",          label: "Panel de control",   roles: ["admin","admin_junior","editor","auditor"] },
-  bloques:      { icon: "ti-building",      label: "Gestión de bloques", roles: ["admin","admin_junior","editor"] },
-  aulas:        { icon: "ti-door",          label: "Gestión de aulas",   roles: ["admin","admin_junior","editor"] },
-  areas:        { icon: "ti-map-pin",       label: "Áreas comunes",      roles: ["admin","admin_junior","editor"] },
-  mapa:         { icon: "ti-map-2",         label: "Mapa de popularidad",roles: ["admin","admin_junior","auditor"] },
-  favoritos:    { icon: "ti-star",          label: "Favoritos",          roles: ["admin","admin_junior","auditor"] },
-  usuarios:     { icon: "ti-users",         label: "Usuarios (estudiantes)", roles: ["admin","admin_junior"] },
-  admins:       { icon: "ti-shield-lock",   label: "Administradores",   roles: ["admin"] },
-  auditoria:    { icon: "ti-file-text",     label: "Auditoría",         roles: ["admin","admin_junior","auditor"] },
-  estadisticas: { icon: "ti-chart-bar",     label: "Estadísticas",      roles: ["admin","admin_junior"] },
-  config:       { icon: "ti-settings",      label: "Configuración",     roles: ["admin"] },
+  panel: { icon: "ti-home", label: "Panel de control", roles: ["admin", "admin_junior", "editor", "auditor"] },
+  bloques: { icon: "ti-building", label: "Gestión de bloques", roles: ["admin", "admin_junior", "editor"] },
+  aulas: { icon: "ti-door", label: "Gestión de aulas", roles: ["admin", "admin_junior", "editor"] },
+  areas: { icon: "ti-map-pin", label: "Áreas comunes", roles: ["admin", "admin_junior", "editor"] },
+  mapa: { icon: "ti-map-2", label: "Mapa de popularidad", roles: ["admin", "admin_junior", "auditor"] },
+  favoritos: { icon: "ti-star", label: "Favoritos", roles: ["admin", "admin_junior", "auditor"] },
+  usuarios: { icon: "ti-users", label: "Usuarios (estudiantes)", roles: ["admin", "admin_junior"] },
+  admins: { icon: "ti-shield-lock", label: "Administradores", roles: ["admin"] },
+  auditoria: { icon: "ti-file-text", label: "Auditoría", roles: ["admin", "admin_junior", "auditor"] },
+  estadisticas: { icon: "ti-chart-bar", label: "Estadísticas", roles: ["admin", "admin_junior"] },
+  config: { icon: "ti-settings", label: "Configuración", roles: ["admin"] },
 };
 
 let moduloActivo = null;
@@ -38,6 +38,8 @@ function renderSidebar() {
   if (disponibles.length) cargarModulo(disponibles[0][0]);
 }
 
+const htmlCache = {};
+
 async function cargarModulo(id) {
   moduloActivo = id;
 
@@ -49,8 +51,10 @@ async function cargarModulo(id) {
   contenido.innerHTML = `<p style="color:#6b7280">Cargando...</p>`;
 
   try {
-    const html = await fetch(`js/modulos/${id}.html`).then(r => r.text());
-    contenido.innerHTML = html;
+    if (!htmlCache[id]) {
+      htmlCache[id] = await fetch(`js/modulos/${id}.html`).then(r => r.text());
+    }
+    contenido.innerHTML = htmlCache[id];
 
     const mod = await import(`./modulos/${id}.js?v=${Date.now()}`);
     if (mod.init) mod.init({ role, email, auth });
@@ -59,7 +63,6 @@ async function cargarModulo(id) {
     console.error(`Error cargando módulo ${id}:`, err);
   }
 }
-
 function renderUserInfo() {
   document.getElementById("userName").textContent = email.split("@")[0];
   document.getElementById("userRoleLabel").textContent = role;
@@ -73,7 +76,17 @@ window.logout = async function () {
 };
 
 document.getElementById("hamburger").addEventListener("click", () => {
-  document.getElementById("sidebar").classList.toggle("open");
+  const sidebar = document.getElementById("sidebar");
+  const btnMostrar = document.getElementById("btnMostrarSidebar");
+  sidebar.classList.add("hidden");
+  btnMostrar.classList.add("show");
+});
+
+document.getElementById("btnMostrarSidebar").addEventListener("click", () => {
+  const sidebar = document.getElementById("sidebar");
+  const btnMostrar = document.getElementById("btnMostrarSidebar");
+  sidebar.classList.remove("hidden");
+  btnMostrar.classList.remove("show");
 });
 
 onAuthStateChanged(auth, async (user) => {

@@ -35,19 +35,49 @@ async function renderRanking() {
     body: JSON.stringify({ idToken })
   });
   const ranking = await res.json();
-  console.log("Ranking de búsquedas:", ranking);
 
   rankingActual = {};
   ranking.forEach(r => rankingActual[r.espacio] = r.total);
 
+  // KPIs resumen
+  const totalBusquedas = ranking.reduce((sum, r) => sum + r.total, 0);
+  const espacioTop = ranking[0];
+  const promedioPorEspacio = ranking.length ? (totalBusquedas / ranking.length).toFixed(1) : "0";
+
+  document.getElementById("busquedasStats").innerHTML = `
+    <div class="stat-card">
+      <div class="stat-icon"><i class="ti ti-search"></i></div>
+      <div><div class="stat-value">${totalBusquedas}</div><div class="stat-label">Total de búsquedas</div></div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-icon"><i class="ti ti-map-pin"></i></div>
+      <div><div class="stat-value">${ranking.length}</div><div class="stat-label">Espacios distintos buscados</div></div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-icon"><i class="ti ti-trophy"></i></div>
+      <div><div class="stat-value" style="font-size:14px">${espacioTop ? espacioTop.espacio.replace(/_/g, " ") : "—"}</div><div class="stat-label">Más buscado</div></div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-icon"><i class="ti ti-chart-bar"></i></div>
+      <div><div class="stat-value">${promedioPorEspacio}</div><div class="stat-label">Promedio por espacio</div></div>
+    </div>
+  `;
+
+  const top5 = ranking.slice(0, 5);
   const cont = document.getElementById("rankingBusquedas");
-  if (!ranking.length) {
+  if (!top5.length) {
     cont.innerHTML = `<p style="color:#6b7280;font-size:13px">Aún no hay búsquedas registradas.</p>`;
-    return;
+  } else {
+    cont.innerHTML = top5.map((r, i) => `
+      <div class="panel-row"><span>#${i + 1} ${r.espacio.replace(/_/g, " ")}</span><span style="color:#0a3d42;font-weight:600">${r.total} <i class="ti ti-search"></i></span></div>
+    `).join("");
   }
-  cont.innerHTML = ranking.map(r => `
-    <div class="panel-row"><span>${r.espacio.replace(/_/g, " ")}</span><span style="color:#0a3d42;font-weight:600">${r.total} <i class="ti ti-search"></i></span></div>
-  `).join("");
+
+  // Tabla completa
+  const tablaCont = document.getElementById("tablaRankingCompleto");
+  tablaCont.innerHTML = ranking.map((r, i) => `
+    <div class="panel-row"><span>#${i + 1} ${r.espacio.replace(/_/g, " ")}</span><span>${r.total}</span></div>
+  `).join("") || `<p style="color:#6b7280;font-size:13px">Sin datos.</p>`;
 }
 
 async function renderRecientes() {

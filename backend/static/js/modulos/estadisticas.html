@@ -1,13 +1,33 @@
-<div class="stats-grid" id="statsGridModulo" style="margin-bottom:14px"></div>
+<div class="stats-grid" id="statsGridModulo" style="margin-bottom:12px"></div>
 
 <div class="charts-row">
-  <div class="chart-card">
-    <h3><i class="ti ti-chart-donut"></i> Administradores por rol</h3>
-    <canvas id="rolesChart" height="140"></canvas>
+  <div style="display:flex;flex-direction:column;gap:12px">
+    <div class="chart-card">
+      <h3><i class="ti ti-chart-donut"></i> Administradores por rol</h3>
+      <div style="position:relative;height:180px">
+        <canvas id="rolesChart"></canvas>
+      </div>
+    </div>
+
+    <div class="chart-card">
+      <h3><i class="ti ti-building"></i> Distribución de espacios</h3>
+      <div style="position:relative;height:180px">
+        <canvas id="distribucionChart"></canvas>
+      </div>
+    </div>
   </div>
 
-  <div class="side-panel">
-    <h3><i class="ti ti-shield-check"></i> Actividad de seguridad (24h)</h3>
-    <div id="actividadSeguridad"></div>
+  <div style="display:flex;flex-direction:column;gap:12px">
+    <div class="side-panel">
+      <h3><i class="ti ti-activity"></i> Logins por día (últimos 7 días)</h3>
+      <div style="position:relative;height:200px">
+        <canvas id="loginsPorDiaChart"></canvas>
+      </div>
+    </div>
+
+    <div class="side-panel">
+      <h3><i class="ti ti-shield-check"></i> Seguridad (24h)</h3>
+      <div id="actividadSeguridad"></div>
+    </div>
   </div>
 </div>
