@@ -179,8 +179,7 @@ async function eliminarAula(bloqueId, aulaId) {
 }
 
 async function renderResumenKPIs() {
-  const res = await fetch("/api/aulas-resumen");
-  const data = await res.json();
+  const data = await window.fetchConCache("/api/aulas-resumen", { method: "GET" });
 
   const tipoTop = Object.entries(data.tipos_conteo).sort((a, b) => b[1] - a[1])[0];
   const servicioTop = Object.entries(data.servicios_conteo).sort((a, b) => b[1] - a[1])[0];
@@ -201,7 +200,6 @@ async function renderResumenKPIs() {
     </div>
   `).join("");
 
-  // Gráfico de servicios — altura dinámica según cantidad de servicios distintos
   const labelsServicios = Object.keys(data.servicios_conteo);
   const valoresServicios = Object.values(data.servicios_conteo);
 
@@ -209,10 +207,6 @@ async function renderResumenKPIs() {
     document.getElementById("serviciosChartWrapper").innerHTML =
       `<p style="color:#6b7280;font-size:12.5px">No hay datos de servicios registrados en las aulas.</p>`;
   } else {
-    // Cada barra necesita ~28px de alto para verse bien; mínimo 180px
-    const alturaCalculada = Math.max(labelsServicios.length * 28, 180);
-    document.getElementById("serviciosChartWrapper").style.height = `${alturaCalculada}px`;
-
     new Chart(document.getElementById("serviciosChart"), {
       type: "bar",
       data: {
@@ -231,23 +225,4 @@ async function renderResumenKPIs() {
       }
     });
   }
-
-  // Gráfico de aulas por tipo
-  const labelsTipos = Object.keys(data.tipos_conteo);
-  const valoresTipos = Object.values(data.tipos_conteo);
-
-  new Chart(document.getElementById("tiposChart"), {
-    type: "doughnut",
-    data: {
-      labels: labelsTipos.length ? labelsTipos : ["Sin datos"],
-      datasets: [{
-        data: valoresTipos.length ? valoresTipos : [1],
-        backgroundColor: ["#0a3d42", "#17b8c4", "#2fd4d4", "#7dd8e0", "#b3ecf0", "#0d4a50"]
-      }]
-    },
-    options: {
-      maintainAspectRatio: false,
-      plugins: { legend: { position: "bottom", labels: { boxWidth: 10, font: { size: 10.5 } } } }
-    }
-  });
 }

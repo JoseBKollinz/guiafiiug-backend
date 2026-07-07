@@ -155,6 +155,12 @@ async function guardarAdmin() {
 
     if (res.ok) {
       cerrarModal();
+      const idToken = await ctx.auth.currentUser.getIdToken();
+      await window.fetchConCache("/api/administradores", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ idToken })
+      }, true);
       cargarAdmins();
     } else {
       msg.textContent = data.error || "Error al guardar";
@@ -179,6 +185,13 @@ async function eliminarAdmin(uid) {
     const data = await res.json();
 
     if (res.ok) {
+      cerrarModal();
+      const idToken = await ctx.auth.currentUser.getIdToken();
+      await window.fetchConCache("/api/administradores", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ idToken })
+      }, true);
       cargarAdmins();
     } else {
       alert(data.error || "Error al eliminar");

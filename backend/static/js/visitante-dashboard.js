@@ -46,21 +46,22 @@ async function renderBusquedas() {
   const res = await fetch(`/api/busquedas-visitante/${visitanteId}`);
   const busquedas = await res.json();
 
-  idsMarcados = new Set(busquedas.map(b => b.espacio_id).filter(Boolean));
-  vistaActual = "busquedas";
-
   if (!busquedas.length) {
-    cont.innerHTML = `<p style="color:#6b7280">Aún no tienes búsquedas registradas.</p>`;
-  } else {
-    cont.innerHTML = `
-      <div class="chart-card">
-        ${busquedas.map(b => `<div class="panel-row"><span>${(b.espacio_id || b.termino || "—").replace(/_/g," ")}</span></div>`).join("")}
-      </div>
-    `;
+    cont.innerHTML = `<p style="color:#6b7280">No se encontraron búsquedas asociadas a tu ID (${visitanteId}). Esto es esperado si no existe relación entre tu sesión anónima y tu registro de estudiante.</p>`;
+    return;
   }
 
-  renderMapaVisitante();
+  cont.innerHTML = `
+    <div class="chart-card">
+      ${busquedas.map(b => `<div class="panel-row"><span>${b.espacio_encontrado || b.termino || "—"}</span></div>`).join("")}
+    </div>
+  `;
 }
+
+document.getElementById("tabBuscados").addEventListener("click", () => {
+  setTab("tabBuscados");
+  renderBusquedas();
+});
 
 function renderMapaVisitante() {
   const items = mapas[mapaActualKey] || [];

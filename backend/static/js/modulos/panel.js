@@ -19,8 +19,7 @@ export async function init(contexto) {
 }
 
 async function cargarSaludo() {
-  const cfgRes = await fetch("/api/configuracion");
-  const cfg = await cfgRes.json();
+  const cfg = await window.fetchConCache("/api/configuracion", { method: "GET" });
 
   const nombreUsuario = ctx.email.split("@")[0];
   document.getElementById("panelSaludo").textContent = `Hola, ${nombreUsuario}`;
@@ -30,12 +29,11 @@ async function cargarSaludo() {
 
 async function cargarEstadisticas() {
   const idToken = await ctx.auth.currentUser.getIdToken();
-  const res = await fetch("/api/estadisticas", {
+  const data = await window.fetchConCache("/api/estadisticas", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ idToken })
   });
-  const data = await res.json();
 
   const tarjetas = [
     { icon: "ti-users", value: data.total_usuarios, label: "Estudiantes" },
@@ -68,12 +66,11 @@ async function cargarEstadisticas() {
 
 async function cargarTopFavoritos() {
   const idToken = await ctx.auth.currentUser.getIdToken();
-  const res = await fetch("/api/favoritos-ranking", {
+  const ranking = await window.fetchConCache("/api/favoritos-ranking", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ idToken })
   });
-  const ranking = await res.json();
   const top5 = ranking.slice(0, 5);
 
   new Chart(document.getElementById("panelFavoritosChart"), {
@@ -96,12 +93,11 @@ async function cargarTopFavoritos() {
 
 async function cargarActividadReciente() {
   const idToken = await ctx.auth.currentUser.getIdToken();
-  const res = await fetch("/api/auditoria", {
+  const logs = await window.fetchConCache("/api/auditoria", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ idToken, limite: 5 })
   });
-  const logs = await res.json();
 
   const cont = document.getElementById("panelActividad");
   if (!logs.length) {

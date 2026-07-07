@@ -1,5 +1,7 @@
 <div class="stats-grid" id="aulasStats" style="margin-bottom:12px"></div>
 
+<div class="stats-grid" id="aulasStats" style="margin-bottom:12px"></div>
+
 <div class="charts-row">
   <div class="chart-card">
     <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
@@ -9,7 +11,7 @@
     </div>
     <select id="selectBloqueFiltro"
       style="width:100%;padding:7px;border:1px solid #dde3ea;border-radius:6px;margin-bottom:8px;font-size:12.5px"></select>
-    <div id="listaAulas" class="scroll-box" style="max-height:220px"></div>
+    <div id="listaAulas" class="scroll-box" style="max-height:240px"></div>
     <p id="aulasMsg" style="color:#d33;font-size:12px;margin-top:6px"></p>
   </div>
 
@@ -19,49 +21,43 @@
       <canvas id="serviciosChart"></canvas>
     </div>
   </div>
+</div>
 
-  <div class="side-panel" style="margin-top:12px">
-    <h3><i class="ti ti-category"></i> Aulas por tipo</h3>
-    <div style="position:relative;height:200px">
-      <canvas id="tiposChart"></canvas>
+<div id="modalAula"
+  style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.4);align-items:center;justify-content:center;z-index:100">
+  <div style="background:#fff;border-radius:12px;padding:24px;width:380px;max-height:85vh;overflow-y:auto">
+    <h3 id="modalAulaTitulo" style="margin-bottom:14px">Nueva aula</h3>
+    <input type="hidden" id="aulaIdEdit">
+
+    <label style="font-size:12.5px;color:#6b7280">Bloque</label>
+    <select id="aulaBloqueSelect"
+      style="width:100%;padding:10px;border:1px solid #dde3ea;border-radius:6px;margin:6px 0 14px"></select>
+
+    <label style="font-size:12.5px;color:#6b7280">Nombre del aula</label>
+    <input type="text" id="aulaNombreInput" placeholder="Aula 14D-009"
+      style="width:100%;padding:10px;border:1px solid #dde3ea;border-radius:6px;margin:6px 0 14px">
+
+    <label style="font-size:12.5px;color:#6b7280">Tipo</label>
+    <input type="text" id="aulaTipoInput" placeholder="Aula de Clases"
+      style="width:100%;padding:10px;border:1px solid #dde3ea;border-radius:6px;margin:6px 0 14px">
+
+    <label style="font-size:12.5px;color:#6b7280">Información</label>
+    <input type="text" id="aulaInfoInput" placeholder="Bloque D - Planta Baja, Capacidad: 40"
+      style="width:100%;padding:10px;border:1px solid #dde3ea;border-radius:6px;margin:6px 0 14px">
+
+    <label style="font-size:12.5px;color:#6b7280">Mapa asociado</label>
+    <input type="text" id="aulaMapaInput" placeholder="Planta Baja D-E-F-G"
+      style="width:100%;padding:10px;border:1px solid #dde3ea;border-radius:6px;margin:6px 0 14px">
+
+    <label style="font-size:12.5px;color:#6b7280">Servicios (separados por coma)</label>
+    <input type="text" id="aulaServiciosInput" placeholder="WiFi, Proyector, 40 asientos"
+      style="width:100%;padding:10px;border:1px solid #dde3ea;border-radius:6px;margin:6px 0 16px">
+
+    <div style="display:flex;gap:8px">
+      <button id="btnGuardarAula"
+        style="flex:1;padding:10px;background:#0a3d42;color:#fff;border:none;border-radius:6px;cursor:pointer">Guardar</button>
+      <button id="btnCancelarAula"
+        style="flex:1;padding:10px;background:#f1f3f6;border:none;border-radius:6px;cursor:pointer">Cancelar</button>
     </div>
   </div>
-
-  <div id="modalAula"
-    style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.4);align-items:center;justify-content:center;z-index:100">
-    <div style="background:#fff;border-radius:12px;padding:24px;width:380px;max-height:85vh;overflow-y:auto">
-      <h3 id="modalAulaTitulo" style="margin-bottom:14px">Nueva aula</h3>
-      <input type="hidden" id="aulaIdEdit">
-
-      <label style="font-size:12.5px;color:#6b7280">Bloque</label>
-      <select id="aulaBloqueSelect"
-        style="width:100%;padding:10px;border:1px solid #dde3ea;border-radius:6px;margin:6px 0 14px"></select>
-
-      <label style="font-size:12.5px;color:#6b7280">Nombre del aula</label>
-      <input type="text" id="aulaNombreInput" placeholder="Aula 14D-009"
-        style="width:100%;padding:10px;border:1px solid #dde3ea;border-radius:6px;margin:6px 0 14px">
-
-      <label style="font-size:12.5px;color:#6b7280">Tipo</label>
-      <input type="text" id="aulaTipoInput" placeholder="Aula de Clases"
-        style="width:100%;padding:10px;border:1px solid #dde3ea;border-radius:6px;margin:6px 0 14px">
-
-      <label style="font-size:12.5px;color:#6b7280">Información</label>
-      <input type="text" id="aulaInfoInput" placeholder="Bloque D - Planta Baja, Capacidad: 40"
-        style="width:100%;padding:10px;border:1px solid #dde3ea;border-radius:6px;margin:6px 0 14px">
-
-      <label style="font-size:12.5px;color:#6b7280">Mapa asociado</label>
-      <input type="text" id="aulaMapaInput" placeholder="Planta Baja D-E-F-G"
-        style="width:100%;padding:10px;border:1px solid #dde3ea;border-radius:6px;margin:6px 0 14px">
-
-      <label style="font-size:12.5px;color:#6b7280">Servicios (separados por coma)</label>
-      <input type="text" id="aulaServiciosInput" placeholder="WiFi, Proyector, 40 asientos"
-        style="width:100%;padding:10px;border:1px solid #dde3ea;border-radius:6px;margin:6px 0 16px">
-
-      <div style="display:flex;gap:8px">
-        <button id="btnGuardarAula"
-          style="flex:1;padding:10px;background:#0a3d42;color:#fff;border:none;border-radius:6px;cursor:pointer">Guardar</button>
-        <button id="btnCancelarAula"
-          style="flex:1;padding:10px;background:#f1f3f6;border:none;border-radius:6px;cursor:pointer">Cancelar</button>
-      </div>
-    </div>
-  </div>
+</div>

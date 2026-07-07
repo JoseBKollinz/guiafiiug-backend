@@ -208,3 +208,22 @@ function iniciarMonitoreoInactividad() {
   });
   reiniciarTimerInactividad();
 }
+
+const cacheAPI = {};
+const CACHE_DURACION_MS = 30 * 60 * 1000; // 2 minutos
+
+async function fetchConCache(url, opciones, forzar = false) {
+  const clave = url + JSON.stringify(opciones?.body || "");
+  const ahora = Date.now();
+
+  if (!forzar && cacheAPI[clave] && (ahora - cacheAPI[clave].timestamp < CACHE_DURACION_MS)) {
+    return cacheAPI[clave].datos;
+  }
+
+  const res = await fetch(url, opciones);
+  const datos = await res.json();
+  cacheAPI[clave] = { datos, timestamp: ahora };
+  return datos;
+}
+
+window.fetchConCache = fetchConCache;

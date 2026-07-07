@@ -7,12 +7,11 @@ export async function init(contexto) {
 
 async function cargarEstadisticas() {
   const idToken = await ctx.auth.currentUser.getIdToken();
-  const res = await fetch("/api/estadisticas", {
+  const data = await window.fetchConCache("/api/estadisticas", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ idToken })
   });
-  const data = await res.json();
 
   renderTarjetas(data);
   renderGraficoRoles(data.administradores_por_rol);

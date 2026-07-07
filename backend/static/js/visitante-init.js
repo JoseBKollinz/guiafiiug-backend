@@ -6,19 +6,20 @@ form.addEventListener("submit", async (e) => {
   e.preventDefault();
   errorMsg.textContent = "";
   btn.disabled = true;
-  btn.textContent = "Buscando...";
+  btn.textContent = "Verificando...";
 
   const cedula = document.getElementById("cedula").value.trim();
+  const apellido = document.getElementById("apellido").value.trim();
 
   try {
     const res = await fetch("/api/buscar-usuario", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ cedula })
+      body: JSON.stringify({ cedula, apellido })
     });
 
     if (!res.ok) {
-      errorMsg.textContent = "No encontramos ningún registro con esa cédula. ¿Ya te registraste en la app móvil?";
+      errorMsg.textContent = "No encontramos ningún registro con esos datos. Verifica tu cédula y apellido.";
       btn.disabled = false;
       btn.textContent = "Ver mis datos";
       return;

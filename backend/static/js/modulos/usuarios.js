@@ -23,12 +23,11 @@ async function cargarUsuarios() {
 
   try {
     const idToken = await ctx.auth.currentUser.getIdToken();
-    const res = await fetch("/api/usuarios", {
+    usuariosCache = await window.fetchConCache("/api/usuarios", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ idToken })
     });
-    usuariosCache = await res.json();
     renderTabla(usuariosCache);
   } catch (err) {
     msg.textContent = "Error al cargar los usuarios.";
@@ -152,14 +151,12 @@ async function guardarUsuario() {
         body: JSON.stringify({ idToken, nombre, apellido })
       });
     } else {
-      res = await fetch("/api/registrar-estudiante", {
+      const data = await window.fetchConCache("/api/registrar-estudiante", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ idToken, nombre, apellido, cedula })
+        body: JSON.stringify({ idToken })
       });
     }
-
-    const data = await res.json();
 
     if (res.ok) {
       cerrarModal();

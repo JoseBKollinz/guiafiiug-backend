@@ -119,8 +119,10 @@ async function eliminarBloque(id) {
   }
 }
 async function renderResumenKPIs() {
-  const res = await fetch("/api/aulas-resumen");
-  const data = await res.json();
+  const idToken = await ctx.auth.currentUser.getIdToken();
+  const data = await window.fetchConCache("/api/aulas-resumen", {
+    method: "GET"
+  });
 
   const promedio = data.total_bloques > 0 ? (data.total_aulas / data.total_bloques).toFixed(1) : "0";
   const bloqueTop = Object.entries(data.aulas_por_bloque).sort((a, b) => b[1] - a[1])[0];
