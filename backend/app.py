@@ -1429,6 +1429,7 @@ def compartir_lugar(lugar_id):
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="icon" type="image/png" href="img/logo-app.png">
         <title>{nombre_lugar} — Sistema de Gestión de Espacios</title>
         <style>
             body {{
