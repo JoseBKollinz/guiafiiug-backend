@@ -1,6 +1,7 @@
 let ctx = null;
 let logsCache = [];
 let reportesCache = [];
+let lugaresInfoCache = [];
 
 export async function init(contexto) {
   ctx = contexto;
@@ -21,8 +22,7 @@ async function cargarLogs() {
   try {
     const idToken = await ctx.auth.currentUser.getIdToken();
 
-    // Trae logs reales y reportes pendientes en paralelo
-    const [logs, reportes] = await Promise.all([
+    const [logs, reportes, lugaresInfo] = await Promise.all([
       window.fetchConCache("/api/auditoria", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -32,44 +32,54 @@ async function cargarLogs() {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ idToken, soloPendientes: true })
+      }),
+      window.fetchConCache("/api/lugares-info", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ idToken })
       })
     ]);
 
     logsCache = logs;
     reportesCache = reportes;
+    lugaresInfoCache = lugaresInfo;
 
-    renderTabla(combinarParaVista(logsCache, reportesCache));
+    renderTabla(combinarParaVista(logsCache, reportesCache, lugaresInfoCache));
   } catch (err) {
     msg.textContent = "Error al cargar el registro de auditoría.";
     console.error(err);
   }
 }
 
-// Convierte los reportes pendientes a un formato "compatible" con la tabla de logs,
-// pero SIN escribir nada en Firestore — es solo para presentación
-function combinarParaVista(logs, reportes) {
+function combinarParaVista(logs, reportes, lugaresInfo) {
   const reportesComoFilas = reportes.map(r => ({
     id: `reporte_${r.id}`,
     accion: "reporte_pendiente",
     documento: r.nombre || r.lugarId || r.id,
     usuario_nombre: null,
     rol: null,
-    resultado: "pendiente",   // marcador especial, no "exito"/"fallido"
-    timestamp: r.fecha,        // epoch ms, igual que busquedas
+    resultado: "pendiente",
+    timestamp: r.fecha,
     ip: null,
-    _esReporte: true,          // bandera interna para diferenciar en el render
-    _problema: r.problema
+    _tipo: "reporte",
+    _detalle: r.problema
   }));
 
-  const combinado = [...logs, ...reportesComoFilas];
+  const lugaresComoFilas = lugaresInfo.map(l => ({
+    id: `lugar_info_${l.id}`,
+    accion: "edicion_lugar_info",
+    documento: l.nombre || l.id,
+    usuario_nombre: null,
+    rol: null,
+    resultado: "sin_auditoria",
+    timestamp: null,
+    ip: null,
+    _tipo: "lugar_info",
+    _detalle: l.tipo || ""
+  }));
 
-  // Ordena todo por fecha descendente (logs usan Firestore Timestamp, reportes usan epoch ms)
-  combinado.sort((a, b) => {
-    const fechaA = obtenerEpoch(a.timestamp);
-    const fechaB = obtenerEpoch(b.timestamp);
-    return fechaB - fechaA;
-  });
-
+  const combinado = [...logs, ...reportesComoFilas, ...lugaresComoFilas];
+  combinado.sort((a, b) => obtenerEpoch(b.timestamp) - obtenerEpoch(a.timestamp));
   return combinado;
 }
 
@@ -86,7 +96,7 @@ function aplicarFiltros() {
   const resultado = document.getElementById("filtroResultado").value;
   const fecha = document.getElementById("filtroFechaLog").value;
 
-  const combinado = combinarParaVista(logsCache, reportesCache);
+  const combinado = combinarParaVista(logsCache, reportesCache, lugaresInfoCache);
 
   const filtrados = combinado.filter(l => {
     const coincideAccion = !accion || l.accion === accion;
@@ -113,7 +123,7 @@ function limpiarFiltros() {
   document.getElementById("filtroUsuarioLog").value = "";
   document.getElementById("filtroResultado").value = "";
   document.getElementById("filtroFechaLog").value = "";
-  renderTabla(combinarParaVista(logsCache, reportesCache));
+  renderTabla(combinarParaVista(logsCache, reportesCache, lugaresInfoCache));
 }
 
 function renderTabla(lista) {
@@ -125,22 +135,32 @@ function renderTabla(lista) {
   }
 
   tbody.innerHTML = lista.map(l => {
-    const esReporte = l._esReporte;
-    const colorResultado = esReporte ? "#d97706" : (l.resultado === 'exito' ? '#16a34a' : '#dc2626');
-    const iconoResultado = esReporte
-      ? '<i class="ti ti-alert-circle" style="color:#d97706"></i> Pendiente'
-      : (l.resultado === 'exito'
-          ? '<i class="ti ti-check" style="color:#16a34a"></i> Éxito'
-          : '<i class="ti ti-x" style="color:#dc2626"></i> Fallido');
+    const esReporte = l._tipo === "reporte";
+    const esLugarInfo = l._tipo === "lugar_info";
+    const esEspecial = esReporte || esLugarInfo;
+
+    let colorFondo = "";
+    let etiquetaAccion = l.accion;
+    let iconoResultado = `<i class="ti ${l.resultado === 'exito' ? 'ti-check' : 'ti-x'}" style="color:${l.resultado === 'exito' ? '#16a34a' : '#dc2626'}"></i> ${l.resultado === 'exito' ? 'Éxito' : 'Fallido'}`;
+
+    if (esReporte) {
+      colorFondo = "background:#fffbeb";
+      etiquetaAccion = "⚠ " + (l._detalle || "Reporte");
+      iconoResultado = `<i class="ti ti-alert-circle" style="color:#d97706"></i> Pendiente`;
+    } else if (esLugarInfo) {
+      colorFondo = "background:#fffbeb";
+      etiquetaAccion = "✎ Edición de lugar" + (l._detalle ? ` (${l._detalle})` : "");
+      iconoResultado = `<i class="ti ti-alert-triangle" style="color:#d97706"></i> Sin fecha`;
+    }
 
     return `
-      <tr style="border-bottom:1px solid #f1f3f6;${esReporte ? 'background:#fffbeb' : ''}">
-        <td style="padding:9px 8px;white-space:nowrap;color:#6b7280">${formatFecha(l.timestamp)}</td>
-        <td style="padding:9px 8px">${l.usuario_nombre || (esReporte ? '—' : (l.usuario_uid || '—'))}</td>
+      <tr style="border-bottom:1px solid #f1f3f6;${colorFondo}">
+        <td style="padding:9px 8px;white-space:nowrap;color:#6b7280">${l.timestamp ? formatFecha(l.timestamp) : "—"}</td>
+        <td style="padding:9px 8px">${l.usuario_nombre || "—"}</td>
         <td style="padding:9px 8px">${l.rol || "—"}</td>
         <td style="padding:9px 8px">
-          <span style="background:${esReporte ? '#fef3c7' : '#e0edff'};color:${esReporte ? '#92400e' : '#0a3d42'};padding:2px 8px;border-radius:10px;font-size:11px">
-            ${esReporte ? '⚠ ' + (l._problema || 'Reporte') : l.accion}
+          <span style="background:${esEspecial ? '#fef3c7' : '#e0edff'};color:${esEspecial ? '#92400e' : '#0a3d42'};padding:2px 8px;border-radius:10px;font-size:11px">
+            ${etiquetaAccion}
           </span>
         </td>
         <td style="padding:9px 8px;font-family:monospace;font-size:11.5px">${l.documento || "—"}</td>

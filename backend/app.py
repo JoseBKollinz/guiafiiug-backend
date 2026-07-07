@@ -1385,7 +1385,98 @@ def eliminar_reporte(reporte_id):
 
     return jsonify({"status": "ok"})
 
+@app.route("/api/lugares-info", methods=["POST"])
+def listar_lugares_info():
+    id_token = request.json.get("idToken")
+    try:
+        require_role(id_token, ["admin", "admin_junior", "auditor"])
+    except PermissionError:
+        return jsonify({"error": "Acceso denegado"}), 403
 
+    lugares = []
+    for doc in db.collection("lugares_info").limit(100).stream():
+        d = doc.to_dict()
+        d["id"] = doc.id
+        lugares.append(d)
+    return jsonify(lugares)
+
+@app.route("/lugar/<lugar_id>")
+def compartir_lugar(lugar_id):
+    nombre_lugar = lugar_id.replace("_", " ")
+    info_extra = ""
+
+    for bloque in db.collection("bloques").stream():
+        aula_ref = db.collection("bloques").document(bloque.id).collection("aulas").document(lugar_id)
+        aula_doc = aula_ref.get()
+        if aula_doc.exists:
+            d = aula_doc.to_dict()
+            nombre_lugar = d.get("nombre", nombre_lugar)
+            info_extra = d.get("info", "")
+            break
+
+    if not info_extra:
+        area_doc = db.collection("areas_comunes").document(lugar_id).get()
+        if area_doc.exists:
+            d = area_doc.to_dict()
+            nombre_lugar = d.get("nombre", nombre_lugar)
+            info_extra = d.get("info", "")
+
+    deep_link = f"mapafii://lugar?id={lugar_id}"
+
+    html = f"""
+    <!DOCTYPE html>
+    <html lang="es">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>{nombre_lugar} — Sistema de Gestión de Espacios</title>
+        <style>
+            body {{
+                font-family: 'Segoe UI', system-ui, sans-serif;
+                background: #071620;
+                color: #fff;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                min-height: 100vh;
+                margin: 0;
+                padding: 24px;
+                text-align: center;
+            }}
+            h1 {{ font-size: 22px; margin-bottom: 8px; }}
+            p {{ color: #9fb8c2; font-size: 14px; max-width: 320px; }}
+            .btn {{
+                margin-top: 20px;
+                padding: 12px 28px;
+                background: linear-gradient(90deg, #0a3d42, #2fd4d4);
+                color: #fff;
+                border-radius: 24px;
+                text-decoration: none;
+                font-weight: 600;
+                font-size: 14px;
+            }}
+            .spinner {{
+                margin-top: 24px;
+                font-size: 12px;
+                color: #5a7684;
+            }}
+        </style>
+    </head>
+    <body>
+        <h1>📍 {nombre_lugar}</h1>
+        <p>{info_extra or "Abriendo en la app del campus..."}</p>
+        <a class="btn" href="{deep_link}">Abrir en la app</a>
+        <p class="spinner">Si no se abre automáticamente, toca el botón de arriba.</p>
+
+        <script>
+            window.location.href = "{deep_link}";
+        </script>
+    </body>
+    </html>
+    """
+    return html
+    
 # ---------- Espacios públicos (visitante, sin login) ----------
 @app.route("/api/espacios-publicos", methods=["GET"])
 def espacios_publicos():
