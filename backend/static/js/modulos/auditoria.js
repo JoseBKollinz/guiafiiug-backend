@@ -22,7 +22,7 @@ async function cargarLogs() {
   try {
     const idToken = await ctx.auth.currentUser.getIdToken();
 
-    const [logs, reportes, lugaresInfo] = await Promise.all([
+    const [logsResult, reportesResult, lugaresResult] = await Promise.allSettled([
       window.fetchConCache("/api/auditoria", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -40,9 +40,9 @@ async function cargarLogs() {
       })
     ]);
 
-    logsCache = logs;
-    reportesCache = reportes;
-    lugaresInfoCache = lugaresInfo;
+    logsCache = logsResult.status === "fulfilled" ? logsResult.value : [];
+    reportesCache = (reportesResult.status === "fulfilled" && Array.isArray(reportesResult.value)) ? reportesResult.value : [];
+    lugaresInfoCache = (lugaresResult.status === "fulfilled" && Array.isArray(lugaresResult.value)) ? lugaresResult.value : [];
 
     renderTabla(combinarParaVista(logsCache, reportesCache, lugaresInfoCache));
   } catch (err) {

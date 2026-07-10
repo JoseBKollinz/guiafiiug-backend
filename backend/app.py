@@ -1310,7 +1310,7 @@ def eliminar_foto_lugar(foto_id):
 def listar_reportes():
     id_token = request.json.get("idToken")
     try:
-        require_role(id_token, ["admin", "admin_junior", "editor"])
+        require_role(id_token, ["admin", "admin_junior", "editor", "auditor"])  # ← agregar auditor
     except PermissionError:
         return jsonify({"error": "Acceso denegado"}), 403
 
@@ -1331,6 +1331,7 @@ def listar_reportes():
 def resolver_reporte(reporte_id):
     id_token = request.json.get("idToken")
     try:
+        # Sin cambios aquí — resolver sigue siendo solo admin/admin_junior/editor
         role, uid = require_role(id_token, ["admin", "admin_junior", "editor"])
     except PermissionError:
         return jsonify({"error": "Acceso denegado"}), 403
@@ -1361,6 +1362,7 @@ def resolver_reporte(reporte_id):
 def eliminar_reporte(reporte_id):
     id_token = request.json.get("idToken")
     try:
+        # Sin cambios aquí tampoco — eliminar sigue restringido
         role, uid = require_role(id_token, ["admin", "admin_junior", "editor"])
     except PermissionError:
         return jsonify({"error": "Acceso denegado"}), 403
@@ -1389,7 +1391,7 @@ def eliminar_reporte(reporte_id):
 def listar_lugares_info():
     id_token = request.json.get("idToken")
     try:
-        require_role(id_token, ["admin", "admin_junior", "auditor"])
+        require_role(id_token, ["admin", "admin_junior", "auditor"])  # confirma que ya está así
     except PermissionError:
         return jsonify({"error": "Acceso denegado"}), 403
 
